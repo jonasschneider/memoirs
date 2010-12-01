@@ -1,8 +1,3 @@
-- header "Nummer 3"
+- header "Nummer #{@memoir.number}"
 
-.memoir.show
-  %p Urbi et orbi. – Die Stadt und der Landkreis.
-  
-  .details
-    %a{ :href => "/memoir/3"} Alex am 01.12.2010
-    = facebook_like_button
+= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

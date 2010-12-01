@@ -1,0 +1,7 @@
+.memoir{ :class => defined?(on_show_page) ? 'show' : '' }
+  %p= memoir.text
+  
+  .details
+    %a{ :href => "/memoir/#{memoir.id}"}== #{memoir.person} am #{format_date(memoir.created_at)}
+    - if defined? on_show_page
+      = facebook_like_button

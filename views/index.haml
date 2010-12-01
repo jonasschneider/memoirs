@@ -1,8 +1,7 @@
-.memoir
-  %p Urbi et orbi. – Die Stadt und der Landkreis.
-    
-  .details
-    %a{ :href => "/memoir/3"} Alex am 01.12.2010
+- @memoirs.each do |memoir|
+  = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
+  - if memoir != @memoirs.last
+    .memoir-separator
 
 .memoir-separator
 
@@ -17,14 +16,3 @@
   .clearfix
   .details
     %a{ :href => "/memoir/1"} Alex am 01.12.2010
-
-.memoir-separator
-
-.memoir
-  %p Alex heiratet mal den Grafen von f.
-  
-  .details
-    %a{ :href => "/memoir/2"} Alex am 01.12.2010
-
-
-

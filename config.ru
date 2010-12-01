@@ -1,12 +1,45 @@
+require "rubygems"
+require "bundler/setup"
+
 require "sinatra"
 require "haml"
 require "sass"
+require "mongoid"
+
+Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"])
+
+class Memoir
+  include Mongoid::Document
+  
+  field :text
+  field :person
+  field :created_at, :type => DateTime
+  
+  before_create :update_created_at
+  
+  def update_created_at
+    self.created_at = Time.now.utc
+  end
+  
+  def number
+    Memoir.where(:created_at.lt => created_at).count + 1
+  end
+end
+
 
 set :haml, :format => :html5
+
+before do
+  content_type 'text/html', :charset => 'utf-8'
+end
 
 helpers do
   def header(header)
     @header = header
+  end
+  
+  def format_date(date)
+    date.strftime("%d.%m.%y")
   end
   
   def facebook_like_button
@@ -15,12 +48,12 @@ helpers do
 end
 
 get '/' do
-  content_type 'text/html', :charset => 'utf-8'
+  @memoirs = Memoir.all
   haml :index
 end
 
 get '/memoir/:id' do
-  content_type 'text/html', :charset => 'utf-8'
+  @memoir = Memoir.find(params[:id])
   haml :show
 end
 
