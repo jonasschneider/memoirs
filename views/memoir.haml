@@ -4,12 +4,11 @@
   - elsif memoir.is_dialogue?
     - reset_cycle
     - memoir.dialogue_lines.each do |line|
-      - if line[:speaker]
-        %p.dialogue{ :class => cycle }
+      %p.dialogue{ :class => cycle }
+        - if line[:speaker]
           %span.speaker= line[:speaker]
-          = line[:message]
-      - else
-        %p{ :class => cycle }
+          %span.speech= line[:message]
+        - else
           = line[:message]
   - else
     %p= memoir.text

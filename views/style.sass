@@ -81,9 +81,7 @@ h2, h2 a
     line-height: 50px
     
 
-  p.dialogue, p.quote
-    clear: both
-    
+  p.dialogue .speech, p.quote
     &:before
       content: "„"
       color: #777
@@ -93,6 +91,8 @@ h2, h2 a
       color: #777
   
   p.dialogue
+    clear: both
+    
     .speaker
       font-size: 20px
       color: #888
@@ -104,17 +104,17 @@ h2, h2 a
     &:after
       margin-left: -10px
     
-  p.a
-    float: left
-    
-    .speaker
+    &.a
       float: left
-  
-  p.b
-    float: right
     
-    .speaker
+      .speaker
+        float: left
+  
+    &.b
       float: right
+      
+      .speaker
+        float: right
 
 .memoir-separator
   height: 1px
