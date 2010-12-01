@@ -6,7 +6,7 @@ require "haml"
 require "sass"
 require "mongoid"
 
-Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"])
+Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"]).db("memoirs_#{ENV["RACK_ENV"]}")
 
 class Memoir
   include Mongoid::Document
