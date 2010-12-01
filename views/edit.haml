@@ -1,0 +1,9 @@
+%h1 Memoir bearbeiten
+
+%form{ :action => "/update/#{@memoir.id}", :method => 'post' }
+  %p
+    %input{ :name => 'memoir[person]', :placeholder => 'Name', :value => @memoir.person } sagte...
+  %p
+    %textarea{ :name => 'memoir[text]', :placeholder => 'Text', :cols => 30, :rows => 10 }= @memoir.text
+  %p
+    %input{ :type => 'submit', :value => 'Speichern' }

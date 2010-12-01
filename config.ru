@@ -57,6 +57,19 @@ before do
 end
 
 helpers do
+  
+  def protected!
+    unless authorized?
+      response['WWW-Authenticate'] = %(Basic realm="Memoiren der Kursstufe")
+      throw(:halt, [401, "Not authorized\n"])
+    end
+  end
+
+  def authorized?
+    @auth ||=  Rack::Auth::Basic::Request.new(request.env)
+    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['jonas', 'jonas93']
+  end
+  
   def header(header)
     @header = header
   end
@@ -85,11 +98,13 @@ get '/' do
 end
 
 get '/new' do
+  protected!
   @memoir = Memoir.new
   haml :new
 end
 
 post '/' do
+  protected!
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
     redirect '/'
@@ -106,6 +121,29 @@ end
 get '/show/:id' do
   @memoir = Memoir.find(params[:id])
   haml :show
+end
+
+post '/update/:id' do
+  protected!
+  @memoir = Memoir.find(params[:id])
+  if @memoir.update_attributes(params[:memoir])
+    redirect "/show/#{@memoir.id}"
+  else
+    render :edit
+  end
+end
+
+get '/delete/:id' do
+  protected!
+  @memoir = Memoir.find(params[:id])
+  @memoir.delete
+  redirect "/"
+end
+
+get '/edit/:id' do
+  protected!
+  @memoir = Memoir.find(params[:id])
+  haml :edit
 end
 
 run Sinatra::Application
