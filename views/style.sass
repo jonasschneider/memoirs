@@ -79,6 +79,18 @@ h2, h2 a
     font-size: 40px
     font-style: italic
     line-height: 50px
+    
+
+  &.dialogue p, p.quote
+    clear: both
+    
+    &:before
+      content: "„"
+      color: #777
+    
+    &:after
+      content: "“"
+      color: #777
   
   &.dialogue
     .speaker
@@ -88,17 +100,11 @@ h2, h2 a
       margin: 0 20px
     
     p
-      clear: both
-      
       &:before
         margin-right: -10px
-        content: "„"
-        color: #777
-      
       &:after
         margin-left: -10px
-        content: "“"
-        color: #777
+    
     .a
       float: left
       

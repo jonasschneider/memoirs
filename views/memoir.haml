@@ -1,5 +1,8 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
-  %p= memoir.text
+  - if memoir.is_quote?
+    %p.quote= memoir.quoted_text
+  - else
+    %p= memoir.text
   
   .details
     %a{ :href => "/show/#{memoir.id}"}== #{memoir.person} am #{format_date(memoir.created_at)}

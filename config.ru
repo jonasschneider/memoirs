@@ -24,6 +24,14 @@ class Memoir
   def number
     Memoir.where(:created_at.lt => created_at).count + 1
   end
+  
+  def is_quote?
+    !quoted_text.nil?
+  end
+
+  def quoted_text
+    $1 if text.match(/^"(.*)"$/)
+  end
 end
 
 
