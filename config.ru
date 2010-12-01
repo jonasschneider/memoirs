@@ -146,4 +146,9 @@ get '/edit/:id' do
   haml :edit
 end
 
+get '/feed.rss' do
+  @memoirs = Memoir.desc(:created_at).limit(15)
+  builder :rss
+end
+
 run Sinatra::Application
