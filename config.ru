@@ -52,14 +52,28 @@ get '/' do
   haml :index
 end
 
-get '/memoir/:id' do
-  @memoir = Memoir.find(params[:id])
-  haml :show
+get '/new' do
+  @memoir = Memoir.new
+  haml :new
+end
+
+post '/' do
+  @memoir = Memoir.new(params[:memoir])
+  if @memoir.save
+    redirect '/'
+  else
+    render :new
+  end
 end
 
 get '/style.css' do
   content_type 'text/css', :charset => 'utf-8'
   sass :style
+end
+
+get '/show/:id' do
+  @memoir = Memoir.find(params[:id])
+  haml :show
 end
 
 run Sinatra::Application

@@ -1,0 +1,9 @@
+%h1 Neues Memoir
+
+%form{ :action => '/', :method => 'post' }
+  %p
+    %input{ :name => 'memoir[person]', :placeholder => 'Name' } sagte...
+  %p
+    %textarea{ :name => 'memoir[text]', :placeholder => 'Text', :cols => 30, :rows => 10 }
+  %p
+    %input{ :type => 'submit', :value => 'Speichern' }
