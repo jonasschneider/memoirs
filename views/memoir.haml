@@ -2,6 +2,7 @@
   - if memoir.is_quote?
     %p.quote= memoir.quoted_text
   - elsif memoir.is_dialogue?
+    - reset_cycle
     - memoir.dialogue_lines.each do |line|
       %p.dialogue{ :class => cycle }
         - if line[:speaker]

@@ -2,3 +2,11 @@
   = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
   - if memoir != @memoirs.last
     .memoir-separator
+
+#pagination
+  - if (@skip + 3) < Memoir.count
+    %span.left
+      %a{ :href => "?skip=#{@skip+3}"} « Ältere
+  - if @skip > 0
+    %span.right
+      %a{ :href => "?skip=#{@skip-3}"} Neuere »

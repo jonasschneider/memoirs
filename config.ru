@@ -65,6 +65,10 @@ helpers do
     %w{a b}[@_cycle = ((@_cycle || -1) + 1) % 2]
   end
   
+  def reset_cycle
+    @_cycle = -1
+  end
+  
   def format_date(date)
     date.strftime("%d.%m.%y")
   end
@@ -75,7 +79,8 @@ helpers do
 end
 
 get '/' do
-  @memoirs = Memoir.all
+  @skip = (params[:skip] && params[:skip].to_i) || 0
+  @memoirs = Memoir.desc(:created_at).skip(@skip).limit(3).to_a
   haml :index
 end
 
