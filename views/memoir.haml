@@ -1,9 +1,16 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   - if memoir.is_quote?
     %p.quote= memoir.quoted_text
+  - elsif memoir.is_dialogue?
+    - memoir.dialogue_lines.each do |line|
+      %p.dialogue{ :class => cycle }
+        - if line[:speaker]
+          %span.speaker= line[:speaker]
+        = line[:message]
   - else
     %p= memoir.text
   
+  .clearfix
   .details
     %a{ :href => "/show/#{memoir.id}"}== #{memoir.person} am #{format_date(memoir.created_at)}
     - if defined? on_show_page

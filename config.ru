@@ -25,12 +25,27 @@ class Memoir
     Memoir.where(:created_at.lt => created_at).count + 1
   end
   
+  
   def is_quote?
     !quoted_text.nil?
   end
 
   def quoted_text
     $1 if text.match(/^"(.*)"$/)
+  end
+  
+  def is_dialogue?
+    !!text.match(/\[(.*)\]/)
+  end
+  
+  def dialogue_lines
+    lines = text.split("\n").map do |line|
+      if line.match(/^\[(.*)\]\s*(.*)$/) # dialogue line
+        { :speaker => $1, :message => $2 }
+      else
+        { :message => line }
+      end
+    end
   end
 end
 
@@ -44,6 +59,10 @@ end
 helpers do
   def header(header)
     @header = header
+  end
+  
+  def cycle
+    %w{a b}[@_cycle = ((@_cycle || -1) + 1) % 2]
   end
   
   def format_date(date)

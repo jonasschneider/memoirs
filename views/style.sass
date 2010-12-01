@@ -81,7 +81,7 @@ h2, h2 a
     line-height: 50px
     
 
-  &.dialogue p, p.quote
+  p.dialogue, p.quote
     clear: both
     
     &:before
@@ -92,26 +92,25 @@ h2, h2 a
       content: "“"
       color: #777
   
-  &.dialogue
+  p.dialogue
     .speaker
       font-size: 20px
       color: #888
       text-transform: uppercase
       margin: 0 20px
     
-    p
-      &:before
-        margin-right: -10px
-      &:after
-        margin-left: -10px
+    &:before
+      margin-right: -10px
+    &:after
+      margin-left: -10px
     
-    .a
+    &.a
       float: left
       
       .speaker
         float: left
     
-    .b
+    &.b
       float: right
       
       .speaker
