@@ -16,13 +16,14 @@ a
 
 html
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0.1, rgb(225,225,215)), color-stop(1, rgb(255,255,255))) no-repeat #fff
+  background: -moz-linear-gradient(center top, rgb(225,225,215) 10%, rgb(255,255,255) 100%) no-repeat #fff
 
 body
   font-family: Georgia, serif
   height: 100%
 
 #wrapper
-  :width 900px
+  :width 850px
   :margin auto
   :text-align center
   :margin-top 60px
@@ -39,10 +40,10 @@ h1
   font-weight: normal
 
 h2, h2 a
-  font-size: 16px
+  font-size: 13px
   font-style: normal
   :font-weight normal
-  letter-spacing: 1.5px
+  letter-spacing: 1px
   text-transform: uppercase
 
 .facebook-like-button
@@ -80,23 +81,21 @@ h2, h2 a
   
   p
     font-family: 'Times New Roman', Georgia, serif
-    font-size: 40px
+    font-size: 30px
     line-height: 50px
     
 
   p.dialogue .speech, p.quote
-    //font-style: italic
-    
     &:before
       content: "„"
       color: #777
-      font-size: 35px
+      font-size: 25px
       padding-right: 3px
     
     &:after
       content: "“"
       color: #777
-      font-size: 35px
+      font-size: 25px
       padding-left: 3px
   
   p.dialogue
@@ -104,10 +103,10 @@ h2, h2 a
     margin: 10px 0
     
     .speaker
-      font-size: 20px
+      font-size: 17px
       color: #888
       text-transform: uppercase
-      margin: 0 20px
+      margin: 2px 20px
     
     &:before
       margin-right: -10px
