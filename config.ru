@@ -25,6 +25,15 @@ class Memoir
     Memoir.where(:created_at.lt => created_at).count + 1
   end
   
+  def previous
+    Memoir.where(:created_at.lt => created_at).desc(:created_at).first
+  end
+  
+  
+  def next
+    Memoir.where(:created_at.gt => created_at).asc(:created_at).first
+  end
+  
   
   def is_quote?
     !quoted_text.nil?
@@ -57,6 +66,11 @@ before do
 end
 
 helpers do
+  include Haml::Helpers
+  
+  def url_for_memoir(memoir)
+    "/show/#{memoir.id}"
+  end
   
   def protected!
     unless authorized?
@@ -70,8 +84,8 @@ helpers do
     @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['jonas', 'jonas93']
   end
   
-  def header(header)
-    @header = header
+  def header(&block)
+    @header = capture_haml(&block)
   end
   
   def cycle

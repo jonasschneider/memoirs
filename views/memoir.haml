@@ -15,6 +15,6 @@
   
   .clearfix
   .details
-    %a{ :href => "/show/#{memoir.id}"}== #{memoir.person} am #{format_date(memoir.created_at)}
+    %a{ :href => url_for_memoir(memoir) }== #{memoir.person} am #{format_date(memoir.created_at)}
     - if defined? on_show_page
       = facebook_like_button

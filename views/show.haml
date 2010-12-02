@@ -1,3 +1,8 @@
-- header "Nummer #{@memoir.number}"
+- header do
+  - unless @memoir.previous.nil?
+    %a{ :href => url_for_memoir(@memoir.previous) } ←
+  == Nummer #{@memoir.number}
+  - unless @memoir.next.nil?
+    %a{ :href => url_for_memoir(@memoir.next) } →
 
 = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
