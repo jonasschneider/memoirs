@@ -148,6 +148,7 @@ end
 
 get '/feed.rss' do
   @memoirs = Memoir.desc(:created_at).limit(15)
+  content_type 'application/rss+xml', :charset => 'utf-8'
   builder :rss
 end
 
