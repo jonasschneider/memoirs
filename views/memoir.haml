@@ -7,6 +7,8 @@
       %p.dialogue{ :class => cycle }
         - if line[:speaker]
           %span.speaker= line[:speaker]
+          - unless line[:style].nil?
+            %span.style= line[:style]
           %span.speech= line[:message]
         - else
           = line[:message]

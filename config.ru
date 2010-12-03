@@ -50,8 +50,8 @@ class Memoir
   
   def dialogue_lines
     lines = text.split("\n").map do |line|
-      if line.match(/^\[(.*)\]\s*(.*)$/) # dialogue line
-        { :speaker => $1, :message => $2 }
+      if line.match(/^\[(.*)\](\((.*)\))?\s*(.*)$/) # dialogue line
+        { :speaker => $1, :message => $4, :style => $3 }
       else
         { :message => line }
       end
