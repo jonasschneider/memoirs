@@ -7,4 +7,8 @@
   - unless @memoir.next.nil?
     %a{ :href => url_for_memoir(@memoir.next) } →
 
+- if authorized?
+  %h5
+    %a{ :href => "/edit/#{@memoir.id}" } Bearbeiten
+
 = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

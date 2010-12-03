@@ -1,6 +1,7 @@
 require "rubygems"
 require "bundler/setup"
 
+require "digest/md5"
 require "sinatra"
 require "haml"
 require "sass"
@@ -61,6 +62,8 @@ end
 
 set :haml, :format => :html5
 
+use Rack::Session::Cookie, :expire_after => 34128000
+
 before do
   content_type 'text/html', :charset => 'utf-8'
 end
@@ -80,8 +83,14 @@ helpers do
   end
 
   def authorized?
+    creds = ['jonas', 'jonas93']
+    return true if session[:admin] == Digest::MD5.hexdigest(creds.to_s)
+    
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
-    @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == ['jonas', 'jonas93']
+    if @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == creds
+      session[:admin] = Digest::MD5.hexdigest(creds.to_s)
+    end
+    false
   end
   
   def header(&block)

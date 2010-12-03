@@ -1,3 +1,7 @@
+- if authorized?
+  %h5
+    %a{ :href => "/new" } Neu
+
 - @memoirs.each do |memoir|
   = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
   - if memoir != @memoirs.last
