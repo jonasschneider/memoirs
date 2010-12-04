@@ -7,10 +7,22 @@
 %p
   %input{ :type => 'submit', :value => 'Speichern' }
 
-#memoir_preview= haml :memoir, :locals =>  { :memoir => @memoir }, :layout => false
+#memoir_preview= haml :memoir, :locals =>  { :memoir => @memoir, :skip_details => true }, :layout => false
 
 %script
   :plain
     $(".memoir_field").keyup(function() {
       $("#memoir_preview").load('/preview', $(this).parents("form").serialize());
     })
+
+%pre
+  :preserve
+    "Dies ist ein ganz normales Zitat."
+    
+    [A] Ich bin Redner A.
+    [B] Ich bin Redner B.
+    
+    [A] Ich bin Redner B.
+    [B](überrascht) Ähm. Nein?
+    (A haut B um)
+    [A] Jetzt schon.

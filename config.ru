@@ -186,7 +186,7 @@ end
 
 get '/preview' do
   @memoir = Memoir.new(params[:memoir])
-  haml :memoir, :locals =>  { :memoir => @memoir }, :layout => false
+  haml :memoir, :locals =>  { :memoir => @memoir, :skip_details => true }, :layout => false
 end
 
 run Sinatra::Application

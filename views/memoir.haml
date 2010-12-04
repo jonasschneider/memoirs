@@ -19,7 +19,8 @@
     %p= memoir.text
   
   .clearfix
-  .details
-    %a{ :href => url_for_memoir(memoir) }== #{memoir.person} am #{format_date(memoir.created_at)}
-    - if defined? on_show_page
-      = facebook_like_button
+  - unless defined?(skip_details)
+    .details
+      %a{ :href => url_for_memoir(memoir) }== #{memoir.person} am #{format_date(memoir.created_at)}
+      - if defined? on_show_page
+        = facebook_like_button
