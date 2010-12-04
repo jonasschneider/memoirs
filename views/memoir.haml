@@ -9,7 +9,10 @@
           %span.speaker= line[:speaker]
           - unless line[:style].nil?
             %span.style= line[:style]
-          %span.speech= line[:message]
+          - unless line[:message].nil? || line[:message].empty?
+            %span.speech= line[:message]
+        - elsif line[:action]
+          %span.action= line[:action]
         - else
           = line[:message]
   - else
