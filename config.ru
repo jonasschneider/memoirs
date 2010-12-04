@@ -37,7 +37,7 @@ class Memoir
   
   
   def is_quote?
-    !quoted_text.nil?
+    text && !quoted_text.nil?
   end
 
   def quoted_text
@@ -45,7 +45,7 @@ class Memoir
   end
   
   def is_dialogue?
-    !!text.match(/\[(.*)\]/)
+    text && !!text.match(/\[(.*)\]/)
   end
   
   def dialogue_lines
@@ -106,7 +106,7 @@ helpers do
   end
   
   def format_date(date)
-    date.strftime("%d.%m.%y")
+    (date || Time.now).strftime("%d.%m.%y")
   end
   
   def facebook_like_button
@@ -177,6 +177,11 @@ get '/feed.rss' do
   @memoirs = Memoir.desc(:created_at).limit(15)
   content_type 'application/rss+xml', :charset => 'utf-8'
   builder :rss
+end
+
+get '/preview' do
+  @memoir = Memoir.new(params[:memoir])
+  haml :memoir, :locals =>  { :memoir => @memoir }, :layout => false
 end
 
 run Sinatra::Application
