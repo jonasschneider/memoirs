@@ -8,7 +8,7 @@ xml.rss :version => "2.0" do
     @memoirs.each do |memoir|
       xml.item do
         xml.title memoir.text
-        xml.link "http://memoirs.heroku.com/show/#{memoir.id}"
+        xml.link url_for_memoir(memoir)
         xml.description { xml.cdata!(memoir.text) }
         xml.pubDate memoir.created_at.utc
         xml.guid memoir.id

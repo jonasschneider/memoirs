@@ -6,6 +6,10 @@ require "sinatra"
 require "haml"
 require "sass"
 require "mongoid"
+require 'active_support/core_ext/string/filters' # String#truncate
+
+require 'rest-graph'
+require "facebook"
 
 Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"]).db("memoirs_#{ENV["RACK_ENV"]}")
 
@@ -77,7 +81,7 @@ helpers do
   include Haml::Helpers
   
   def url_for_memoir(memoir)
-    "/show/#{memoir.id}"
+    "http://#{request.host}/show/#{memoir.id}"
   end
   
   def protected!
@@ -139,6 +143,8 @@ post '/' do
   protected!
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
+    raise url_for_memoir(@memoir)
+    Facebook.post(:message => @memoir.text.truncate(60), :link => url_for_memoir(@memoir))
     redirect '/'
   else
     render :new
