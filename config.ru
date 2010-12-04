@@ -41,7 +41,7 @@ class Memoir
   end
 
   def quoted_text
-    $1 if text.match(/^"(.*)"$/)
+    $1 if text.match(/\A"(.*)"\z/)
   end
   
   def is_dialogue?
