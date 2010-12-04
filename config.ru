@@ -59,8 +59,11 @@ class Memoir
   end
 end
 
-
 set :haml, :format => :html5
+
+if ENV["RACK_ENV"] == "production"
+  set :haml, :format => :html5, :ugly => true
+end
 
 use Rack::Session::Cookie, :expire_after => 34128000
 
