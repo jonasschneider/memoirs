@@ -143,7 +143,9 @@ post '/' do
   protected!
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
-    Facebook.post(:message => @memoir.text.truncate(60), :link => url_for_memoir(@memoir))
+    Thread.new do
+      Facebook.post(:message => @memoir.text.truncate(60), :link => url_for_memoir(@memoir))
+    end
     redirect '/'
   else
     render :new
