@@ -1,6 +1,7 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   - if memoir.is_quote?
     %p.quote= memoir.quoted_text
+    %p.quotesource= memoir.person
   - elsif memoir.is_dialogue?
     - reset_cycle
     - memoir.dialogue_lines.each do |line|
