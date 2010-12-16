@@ -45,7 +45,7 @@ class Memoir
   end
 
   def quoted_text
-    $1 if text.match(/\A"(.*)"\z/)
+    $1.gsub("\n", "<br />") if text.match(/^"(.*)"$/m)
   end
   
   def is_dialogue?
@@ -125,6 +125,12 @@ helpers do
   def faceboook_like_page_badge
     '<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FMemoiren-der-Kursstufe%2F165459146823786&amp;layout=standard&amp;show_faces=false&amp;width=450&amp;action=recommend&amp;font=arial&amp;colorscheme=light&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:450px; height:35px;" allowTransparency="true"></iframe>'
   end
+  
+  def post_memoir_to_facebook(memoir)
+    Thread.new do
+      Facebook.post(:message => memoir.text.truncate(60), :link => url_for_memoir(memoir))
+    end
+  end
 end
 
 get '/' do
@@ -143,9 +149,7 @@ post '/' do
   protected!
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
-    Thread.new do
-      Facebook.post(:message => @memoir.text.truncate(60), :link => url_for_memoir(@memoir))
-    end
+    post_memoir_to_facebook(@memoir) if ENV["RACK_ENV"] == "production"
     redirect '/'
   else
     render :new
