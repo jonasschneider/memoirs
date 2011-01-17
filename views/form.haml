@@ -12,7 +12,9 @@
 %script
   :plain
     $(".memoir_field").keyup(function() {
-      $("#memoir_preview").load('/preview', $(this).parents("form").serialize());
+      $("#memoir_preview").load('/preview', $(this).parents("form").serialize(), function() {
+        Cufon.replace('.memoir p');
+      });
     })
 
 %pre
