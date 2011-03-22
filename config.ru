@@ -1,6 +1,8 @@
 require "rubygems"
 require "bundler/setup"
 
+require 'rack_clicky'
+
 require "digest/md5"
 require "sinatra"
 require "haml"
@@ -72,6 +74,7 @@ if ENV["RACK_ENV"] == "production"
 end
 
 use Rack::Session::Cookie, :expire_after => 34128000
+use Rack::Clicky, '66392323'
 
 before do
   content_type 'text/html', :charset => 'utf-8'

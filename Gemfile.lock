@@ -21,6 +21,7 @@ GEM
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
     rack (1.2.1)
+    rack_clicky (1.0.2)
     rest-client (1.6.1)
       mime-types (>= 1.16)
     rest-graph (1.6.0)
@@ -38,6 +39,7 @@ DEPENDENCIES
   haml
   json
   mongoid (= 2.0.0.beta.20)
+  rack_clicky
   rest-client
   rest-graph
   sinatra
