@@ -166,7 +166,7 @@ get '/style.css' do
   sass :style
 end
 
-get %r{\A/([0-9]+)} do |number|
+get %r{^/([0-9]+)$} do |number|
   @memoir = Memoir.find_by_number(number.to_i)
   haml :show
 end
