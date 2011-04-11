@@ -22,6 +22,11 @@ class Memoir
   
   before_create :update_created_at
   
+  def self.find_by_number(number)
+    Memoir.asc(:created_at).skip(number-1).first
+  end
+  
+  
   def update_created_at
     self.created_at = Time.now.utc
   end
@@ -81,7 +86,7 @@ helpers do
   include Haml::Helpers
   
   def url_for_memoir(memoir)
-    "http://#{request.host}/show/#{memoir.id}"
+    "http://#{request.host_with_port}/#{memoir.number}"
   end
   
   def protected!
@@ -161,16 +166,21 @@ get '/style.css' do
   sass :style
 end
 
+get %r{/([\d]+)} do |number|
+  @memoir = Memoir.find_by_number(number.to_i)
+  haml :show
+end
+
 get '/show/:id' do
   @memoir = Memoir.find(params[:id])
-  haml :show
+  redirect url_for_memoir(memoir)
 end
 
 post '/update/:id' do
   protected!
   @memoir = Memoir.find(params[:id])
   if @memoir.update_attributes(params[:memoir])
-    redirect "/show/#{@memoir.id}"
+    redirect url_for_memoir(memoir)
   else
     render :edit
   end
