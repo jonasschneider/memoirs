@@ -172,7 +172,7 @@ get %r{^/([0-9]+)$} do |number|
 end
 
 get '/show/:id' do
-  @memoir = Memoir.find(params[:id])
+  memoir = Memoir.find(params[:id])
   redirect url_for_memoir(memoir)
 end
 
