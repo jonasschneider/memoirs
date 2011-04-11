@@ -7,17 +7,6 @@
   %script{ :src => '/cufon-yui.js'}
   %script{ :src => '/Adobe_Caslon_Pro_400.font.js'}
   %script Cufon.replace('.memoir p');
-  
-%body
-  #wrapper
-    #header
-      %h2
-        %a{ :href => "/" } Memoiren der Kursstufe
-      %h5 von Jonas Schneider
-      - if @header
-        %h1= @header
-    #content= yield
-  
   %script
     :plain
       var _gaq = _gaq || [];
@@ -29,3 +18,13 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
+
+%body
+  #wrapper
+    #header
+      %h2
+        %a{ :href => "/" } Memoiren der Kursstufe
+      %h5 von Jonas Schneider
+      - if @header
+        %h1= @header
+    #content= yield
