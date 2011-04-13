@@ -13,14 +13,16 @@ module MemoirHelpers
   end
 
   def authorized?
-    creds = ['jonas', 'jonas93']
+    creds = ['jonas', 'jonas']
     return true if session[:admin] == Digest::MD5.hexdigest(creds.to_s)
     
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
     if @auth.provided? && @auth.basic? && @auth.credentials && @auth.credentials == creds
       session[:admin] = Digest::MD5.hexdigest(creds.to_s)
+      true
+    else
+      false
     end
-    false
   end
   
   def header(&block)
@@ -48,8 +50,6 @@ module MemoirHelpers
   end
   
   def post_memoir_to_facebook(memoir)
-    Thread.new do
-      Facebook.post(:message => memoir.text.truncate(60), :link => url_for_memoir(memoir))
-    end
+    Facebook.post(:message => memoir.text.truncate(60), :link => url_for_memoir(memoir))
   end
 end

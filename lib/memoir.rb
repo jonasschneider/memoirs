@@ -5,6 +5,8 @@ class Memoir
   field :person
   field :created_at, :type => DateTime
   
+  validates_presence_of :text, :person
+  
   before_create :update_created_at
   
   def self.find_by_number(number)

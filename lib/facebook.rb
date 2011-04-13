@@ -19,6 +19,6 @@ module Facebook
     # :link => A Link
     
     rg = ::RestGraph.new(:access_token => APP_TOKEN)
-    p rg.post("me/feed", options)
+    rg.post("me/feed", options)
   end
 end

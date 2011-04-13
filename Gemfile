@@ -12,7 +12,5 @@ gem "rest-graph"
 gem "activesupport"
 
 group :test do
-  gem "vcr"
   gem "rack-test"
-  gem "webmock"
 end

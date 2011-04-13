@@ -9,8 +9,6 @@ require 'lib/facebook'
 require 'lib/memoir'
 require 'lib/memoir_helpers'
 
-Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"]).db("memoirs_#{ENV["RACK_ENV"]}")
-
 configure do
   set :haml, :format => :html5
 end
@@ -67,7 +65,11 @@ post '/' do
   protected!
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
-    post_memoir_to_facebook(@memoir) if production?
+    if production?
+      Thread.new do
+        post_memoir_to_facebook(@memoir)
+      end
+    end
     redirect '/'
   else
     render :new
