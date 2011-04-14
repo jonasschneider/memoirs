@@ -87,13 +87,15 @@ h2, h2 a
     font-family: Georgia, serif
     font-size: 30px
     line-height: 50px
-    
-
+  
   p.dialogue .speech, p.quote
-    &:before, &:after
+    &:before, &:after, .quotesym
       white-space: nowrap
       color: #777
       font-size: 25px
+    
+    .quotesym
+      display: none
     
     &:before
       content: "„"

@@ -8,12 +8,15 @@
   %meta{ :name => 'description', :content => 'Die Memoiren der Kursstufe.' }
   %meta{ :name => 'keywords', :content => 'memoiren, sprüche, kursstufe, schule, lehrer, schüler, lustig, witze, zitate' }
   %link{ :rel => 'alternate', :title => 'RSS Feed', :href => '/feed.rss', :type => 'application/rss+xml' }
-  %script{ :src => '/cufon-yui.js'}
-  %script{ :src => '/Adobe_Caslon_Pro_400.font.js'}
+  %script{ :src => '/fonts.js'}
   %script
     :plain
       if (document.documentElement.clientWidth >= 480) {
-      	Cufon.replace('.memoir p');
+        /* actual replacement is in fonts.js */
+        var tag = document.createElement("script");
+        tag.type = "text/javascript";
+        tag.src = "/fonts.js";
+        document.getElementsByTagName('head')[0].appendChild(tag);
       }
       
       

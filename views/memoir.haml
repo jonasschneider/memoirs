@@ -1,7 +1,7 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   %span.number= memoir.number
   - if memoir.is_quote?
-    %p.quote= memoir.quoted_text
+    %p.quote== <span class=quotesym>„</span>#{memoir.quoted_text}<span class=quotesym>“</span>
     %p.quotesource= memoir.person
   - elsif memoir.is_dialogue?
     - reset_cycle
@@ -12,7 +12,7 @@
           - unless line[:style].nil?
             %span.style= line[:style]
           - unless line[:message].nil? || line[:message].empty?
-            %span.speech= line[:message]
+            %span.speech== <span class=quotesym>„</span>#{line[:message]}<span class=quotesym>“</span>
         - elsif line[:action]
           %span.action= line[:action]
         - else

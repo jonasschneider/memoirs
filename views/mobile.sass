@@ -50,15 +50,13 @@ html
       :font-size 15px
   
   p.dialogue .speech, p.quote
-    &:before, &:after
+    .quotesym
+      display: inline
       font-size: 18px
     
-    &:before
-      padding-right: 1px
-    
-    &:after  
-      padding-left: 1px
-  
+    &:before, &:after
+      content: none
+
   p.quotesource
     :float none
     :margin 0 0 0 30px
