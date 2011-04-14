@@ -1,4 +1,5 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
+  %span.number= memoir.number
   - if memoir.is_quote?
     %p.quote= memoir.quoted_text
     %p.quotesource= memoir.person

@@ -124,6 +124,13 @@ get '/style.css' do
   sass :style
 end
 
+# GET /mobile.css
+# Mobile Stylesheet.
+get '/mobile.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :mobile
+end
+
 
 # GET /feed.rss
 # RSS feed.
