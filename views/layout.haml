@@ -12,11 +12,7 @@
   %script
     :plain
       if (document.documentElement.clientWidth >= 480) {
-        /* actual replacement is in fonts.js */
-        var tag = document.createElement("script");
-        tag.type = "text/javascript";
-        tag.src = "/fonts.js";
-        document.getElementsByTagName('head')[0].appendChild(tag);
+        Cufon.replace('.memoir p');
       }
       
       
