@@ -4,6 +4,7 @@
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/style.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'handheld', :href => '/mobile.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (max-width: 480px)', :href => '/mobile.css' }
+  %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (min-width: 500px)', :href => '/fonts/stylesheet.css' }
 
   %meta{ :name => 'description', :content => 'Die Memoiren der Kursstufe.' }
   %meta{ :name => 'keywords', :content => 'sprüche, kursstufe, schule, lehrer, kaindl, schüler, lustig, fichte, witze, zitate' }
@@ -11,11 +12,6 @@
   %script{ :src => '/fonts.js'}
   %script
     :plain
-      if (document.documentElement.clientWidth >= 480) {
-        Cufon.replace('.memoir p');
-      }
-      
-      
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-22564891-1']);
       _gaq.push(['_trackPageview']);
@@ -33,5 +29,5 @@
         %a{ :href => '/' } Memoiren der Kursstufe
       %h5 von Jonas Schneider
       - if @header
-        %h1= @header
+        %h3= @header
     #content= yield

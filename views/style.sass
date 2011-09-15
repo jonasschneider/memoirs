@@ -15,11 +15,12 @@ a
     color: #333
 
 html
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.1, rgb(225,225,215)), color-stop(1, rgb(255,255,255))) no-repeat #fff
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.1, #ddd), color-stop(1, #eee)) no-repeat #eee
+  background-size: 100% 700px
   background: -moz-linear-gradient(center top, rgb(225,225,215) 10%, rgb(255,255,255) 100%) no-repeat #fff
 
 body
-  font-family: Georgia, serif
+  font-family: 'Adobe Caslon Pro', Georgia, serif
   height: 100%
 
 #wrapper
@@ -29,16 +30,6 @@ body
   :margin-top 60px
   :padding-bottom 150px
 
-h1
-  color: #4D4D4D
-  font-family: Georgia, serif
-  font-size: 20px
-  font-style: italic
-  letter-spacing: 1px
-  margin: 20px 0px 0px
-  padding: 0px
-  font-weight: normal
-
 h2, h2 a
   color: #888
   font-size: 13px
@@ -46,6 +37,14 @@ h2, h2 a
   :font-weight normal
   letter-spacing: 1px
   text-transform: uppercase
+
+h5
+  font-size: 95%
+
+h3
+  margin: 20px
+  color: #555
+  font-size: 120%
 
 .facebook-like-button
   position: relative
@@ -62,11 +61,13 @@ h2, h2 a
   padding: 70px 0
   clear: both
   
+  font-family: 'Adobe Caslon Pro', Georgia, serif
+  
   .number
     display: none
   
   .details
-    :margin 30px
+    :margin 20px
     :float right
     text-align: left
     color: #999
@@ -83,28 +84,20 @@ h2, h2 a
   &:hover .details, &.show .details
     visibility: visible
   
-  p
-    font-family: Georgia, serif
+  .quote
     font-size: 30px
     line-height: 50px
+    text-shadow: 0 0 2px #ccc
   
-  p.dialogue .speech, p.quote
-    
-    &:before, &:after
-      white-space: nowrap
-      color: #777
-      font-size: 25px
-    
-    &:before
-      content: "„"
-      padding-right: 3px
-    
-    &:after
-      content: "“"
-      padding-left: 3px
-      
+  .quotesym
+    color: #777
+    font-size: 25px
+    text-shadow: none
+    margin: 0 0.1em
+  
   p.quotesource
     :font-style italic
+    font-size: 25px
     color: #999
     :float right
     :margin-right 200px
@@ -119,14 +112,15 @@ h2, h2 a
     margin: 10px 0
     
     .speaker
-      font-size: 17px
+      font-size: 90%
       color: #999
       text-transform: uppercase
-      margin: 2px 20px
+      margin: 10px 20px
+      text-shadow: none
       
     .style, .action
       font-style: italic
-      color: #777
+      color: #aaa
     
     &:before
       margin-right: -10px

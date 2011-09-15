@@ -1,11 +1,11 @@
 - def enquote(raw_text)
   - text = raw_text.strip
-  - return "<nobr>„#{text[0,1]}</nobr>#{text[1,(text.length-2)]}<nobr>#{text[-1,1]}“</nobr>"
+  - return "<span class=quotesym>„</span>#{text}<span class=quotesym>“</span>"
 
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   %span.number= memoir.number
   - if memoir.is_quote?
-    %p.quote== „#{memoir.quoted_text}“
+    %p.quote= enquote memoir.quoted_text
     %p.quotesource= memoir.person
   - elsif memoir.is_dialogue?
     - reset_cycle
@@ -16,13 +16,13 @@
           - unless line[:style].nil?
             %span.style= line[:style]
           - unless line[:message].nil? || line[:message].empty?
-            %span.speech= enquote line[:message]
+            %span.quote= enquote line[:message]
         - elsif line[:action]
           %span.action= line[:action]
         - else
           = line[:message]
   - else
-    %p= memoir.text
+    %p.quote= memoir.text
   
   .clearfix
   - unless defined?(skip_details)
