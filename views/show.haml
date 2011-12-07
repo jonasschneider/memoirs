@@ -11,4 +11,7 @@
   %h5
     %a{ :href => "/edit/#{@memoir.id}" } Bearbeiten
 
+%h5
+  %a{ :href => "/random" } Zufällig
+
 = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

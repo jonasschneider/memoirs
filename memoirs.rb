@@ -50,6 +50,13 @@ get '/show/:id' do
   redirect url_for_memoir(memoir)
 end
 
+# GET /random
+# Redirect to a random memoir.
+get '/random' do
+  memoir = Memoir.skip((rand*(Memoir.count)).to_i).first
+  redirect url_for_memoir(memoir)
+end
+
 
 # GET /new
 # New memoir form.
