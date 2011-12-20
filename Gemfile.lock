@@ -1,9 +1,8 @@
 GIT
   remote: git://github.com/jonasschneider/mongoid_fulltext.git
-  revision: 937566815a536e749e11d2428cdad2b7d64de3f4
+  revision: d0724ffbdc290d5bc85fa6ae2de71fca5a05a5cd
   specs:
     mongoid_fulltext (0.5.6)
-      unicode_utils (~> 1.0.0)
 
 GEM
   remote: http://rubygems.org/
@@ -38,7 +37,6 @@ GEM
     sinatra (1.0)
       rack (>= 1.0)
     tzinfo (0.3.23)
-    unicode_utils (1.0.0)
     will_paginate (3.0.pre2)
 
 PLATFORMS
