@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/jonasschneider/mongoid_fulltext.git
+  revision: 937566815a536e749e11d2428cdad2b7d64de3f4
+  specs:
+    mongoid_fulltext (0.5.6)
+      unicode_utils (~> 1.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -20,8 +27,6 @@ GEM
       mongo (~> 1.1)
       tzinfo (~> 0.3.22)
       will_paginate (~> 3.0.pre)
-    mongoid_fulltext (0.5.6)
-      unicode_utils (~> 1.0.0)
     rack (1.2.1)
     rack-test (0.5.6)
       rack (>= 1.0)
@@ -45,7 +50,7 @@ DEPENDENCIES
   haml
   json
   mongoid (= 2.0.0.beta.20)
-  mongoid_fulltext
+  mongoid_fulltext!
   rack-test
   rest-client
   rest-graph
