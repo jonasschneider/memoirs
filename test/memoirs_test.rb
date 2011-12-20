@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), 'env')
+require './'+File.join(File.dirname(__FILE__), 'env')
 
 class MemoirsTest < Test::Unit::TestCase
   include Rack::Test::Methods

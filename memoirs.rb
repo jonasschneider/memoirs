@@ -18,6 +18,9 @@ configure :production do
 end
 
 
+Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"] || 'mongodb://localhost').db("memoirs_#{ENV["RACK_ENV"]}")
+
+
 use Rack::Session::Cookie, :expire_after => 34128000
 
 before do
