@@ -30,6 +30,6 @@
       %h5 von Jonas Schneider
       - if @header
         %h3= @header
-      %form{ action: '/search' }
-        %input#search_field{ name: 'query', placeholder: 'Suchen... (mit Enter)' }
+      %form{ :action => '/search' }
+        %input#search_field{ :name => 'query', :placeholder => 'Suchen... (mit Enter)' }
     #content= yield
