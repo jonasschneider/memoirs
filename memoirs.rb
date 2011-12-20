@@ -65,7 +65,7 @@ end
 # GET /search
 # Full-text search.
 get '/search' do
-  @memoirs = Memoir.fulltext_search(params[:query])
+  @memoirs = Memoir.fulltext_search(params[:query], { :return_scores => true }).select{|d|d[1] > 1}.sort_by{|d| d[1]}.map{|d|d[0]}.reverse
   @skip = (params[:skip] && params[:skip].to_i) || 0
   haml :index
 end
