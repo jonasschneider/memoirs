@@ -2,7 +2,7 @@ source :rubygems
 
 gem "mongoid", "2.0.0.beta.20"
 gem "bson_ext"
-gem "mongoid_fulltext"
+gem "mongoid_fulltext", :git => "git://github.com/jonasschneider/mongoid_fulltext.git"
 
 gem "sinatra"
 gem "haml"
