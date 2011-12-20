@@ -1,9 +1,15 @@
 class Memoir
   include Mongoid::Document
-  
+  include Mongoid::FullTextSearch
+
+  field :first_name
+  field :last_name
+
   field :text
   field :person
   field :created_at, :type => DateTime
+  
+  fulltext_search_in :text, :person
   
   validates_presence_of :text, :person
   

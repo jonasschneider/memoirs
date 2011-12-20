@@ -3,6 +3,7 @@ require "sinatra"
 require "haml"
 require "sass"
 require "mongoid"
+require "mongoid_fulltext"
 require 'active_support/core_ext/string/filters' # String#truncate
 require 'rest-graph'
 require 'lib/facebook'
@@ -58,6 +59,15 @@ end
 get '/random' do
   memoir = Memoir.skip((rand*(Memoir.count)).to_i).first
   redirect url_for_memoir(memoir)
+end
+
+
+# GET /search
+# Full-text search.
+get '/search' do
+  @memoirs = Memoir.fulltext_search(params[:query])
+  @skip = (params[:skip] && params[:skip].to_i) || 0
+  haml :index
 end
 
 

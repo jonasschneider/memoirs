@@ -69,4 +69,15 @@ class MemoirsTest < Test::Unit::TestCase
     get "/delete/#{memoir.id}"
     assert_equal 0, Memoir.count
   end
+  
+  def test_it_searches
+    a = Memoir.create!(:text => 'ohaiSHOWSTOPPER', :person => 'lol')
+    b = Memoir.create!(:text => 'oomatch', :person => 'lol')
+    c = Memoir.create!(:text => 'oo', :person => 'lolmatch')
+    
+    get "/search", :query => "match"
+    assert last_response.body.include?('oomatch')
+    assert last_response.body.include?('lolmatch')
+    assert !last_response.body.include?('SHOWSTOPPER')
+  end
 end
