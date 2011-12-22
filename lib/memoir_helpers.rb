@@ -13,7 +13,7 @@ module MemoirHelpers
   end
 
   def authorized?
-    creds = ['jonas', 'jonas']
+    creds = (ENV["CREDENTIALS"] || 'jonas:jonas').split(":")
     return true if session[:admin] == Digest::MD5.hexdigest(creds.to_s)
     
     @auth ||=  Rack::Auth::Basic::Request.new(request.env)
