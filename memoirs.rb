@@ -86,9 +86,9 @@ post '/' do
   @memoir = Memoir.new(params[:memoir])
   if @memoir.save
     if production?
-      Thread.new do
-        post_memoir_to_facebook(@memoir)
-      end
+      #Thread.new do
+      #  post_memoir_to_facebook(@memoir)
+      #end
     end
     redirect '/'
   else
