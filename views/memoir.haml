@@ -27,6 +27,6 @@
   .clearfix
   - unless defined?(skip_details)
     .details
-      %a{ :href => url_for_memoir(memoir) }== #{memoir.person} am #{format_date(memoir.created_at)}
+      %a{ :href => url_for_memoir(memoir) }== Nummer #{memoir.number} vom #{format_date(memoir.created_at)}
       - if defined? on_show_page
         = facebook_like_button
