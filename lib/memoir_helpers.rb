@@ -13,6 +13,7 @@ module MemoirHelpers
   end
 
   def authorized?
+    return if ENV["CREDENTIALS"] == 'none'
     creds = (ENV["CREDENTIALS"] || 'jonas:jonas').split(":")
     return true if session[:admin] == Digest::MD5.hexdigest(creds.to_s)
     
