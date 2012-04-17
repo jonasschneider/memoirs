@@ -18,8 +18,13 @@ configure :production do
   set :haml, :format => :html5, :ugly => true
 end
 
-
-Mongoid.database = Mongo::Connection.from_uri(ENV["MONGO"] || 'mongodb://localhost').db("memoirs_#{ENV["RACK_ENV"]}")
+Mongoid.database = 
+  if ENV['MONGOHQ_URL']
+    uri = URI.parse(ENV['MONGOHQ_URL'])
+    Mongo::Connection.from_uri(ENV['MONGOHQ_URL']).db(uri.path.gsub(/^\//, ''))
+  else
+    Mongo::Connection.from_uri(ENV["MONGO"] || 'mongodb://localhost').db("memoirs_#{ENV["RACK_ENV"]}")
+  end
 
 
 use Rack::Session::Cookie, :expire_after => 34128000
