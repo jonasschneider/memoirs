@@ -1,7 +1,7 @@
 %script{ :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' }
 
 %p
-  %input.memoir_field{ :name => 'memoir[person]', :placeholder => 'Name', :value => memoir.person } sagte...
+  %input.memoir_field{ :name => 'memoir[person]', :placeholder => 'Name (optional)', :value => memoir.person } sagte...
 %p
   %textarea.memoir_field{ :name => 'memoir[text]', :placeholder => 'Text', :cols => 30, :rows => 10 }= memoir.text
 %p
@@ -16,11 +16,13 @@
         Cufon.replace('.memoir p');
       });
     })
-
 %pre
   :preserve
-    Em: —   En: –
-    "Dies ist ein ganz normales Zitat."
+    Formatierungshilfe:
+
+    Ich bin ein Text. <- Der Text steht ganz frei da.
+
+    "Hohoho." <- Hier wird der "Name" von obendrüber als Zitatautor angezeigt.
     
     [A] Ich bin Redner A.
     [B] Ich bin Redner B.
@@ -29,3 +31,5 @@
     [B](überrascht) Ähm. Nein?
     (A haut B um)
     [A] Jetzt schon.
+
+    Em: —   En: –
