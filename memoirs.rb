@@ -35,6 +35,10 @@ end
 
 helpers MemoirHelpers
 
+helpers do
+  include Rack::Utils
+end
+
 # GET /
 # Index page.
 get '/' do

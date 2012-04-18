@@ -14,6 +14,14 @@ class Memoir
   validates_presence_of :text, :person
   
   before_create :update_created_at
+
+  before_save :maybe_escape
+
+  def maybe_escape
+    if ENV["SITE_NAME"]
+      text.gsub!('<', '&lt;').gsub!('>', '&gt;')
+    end
+  end
   
   def self.find_by_number(number)
     Memoir.asc(:created_at).skip(number-1).first
