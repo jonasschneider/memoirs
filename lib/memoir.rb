@@ -11,7 +11,7 @@ class Memoir
   
   fulltext_search_in :text, :person
   
-  validates_presence_of :text, :person
+  validates_presence_of :text
   
   before_create :update_created_at
 
@@ -19,8 +19,9 @@ class Memoir
 
   def maybe_escape
     if ENV["SITE_NAME"]
-      text.gsub!('<', '&lt;').gsub!('>', '&gt;')
+      self.text = (text || '').gsub('<', '&lt;').gsub('>', '&gt;')
     end
+    true
   end
   
   def self.find_by_number(number)

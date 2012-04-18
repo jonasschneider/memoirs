@@ -101,7 +101,7 @@ post '/' do
     end
     redirect '/'
   else
-    render :new
+    haml :new
   end
 end
 
@@ -123,7 +123,7 @@ post '/update/:id' do
   if @memoir.update_attributes(params[:memoir])
     redirect url_for_memoir(@memoir)
   else
-    render :edit
+    haml :edit
   end
 end
 
