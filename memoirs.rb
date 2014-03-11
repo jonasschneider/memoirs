@@ -35,21 +35,45 @@ end
 
 class MemoirRepo
   def list(offset)
-    dataset.offset(offset).limit(3).map{|r|Memoir.new(r)}
+    load dataset.offset(offset).limit(3)
   end
 
   def count
     dataset.count
   end
 
-  def method_missing(x, *args)
-    dataset.send(x, *args)
+  def find_by_number(number)
+    load_one dataset.order(:created_at).offset(number-1)
+  end
+
+  def count_older_than(time)
+    dataset.filter("created_at < ?", time).count
+  end
+
+  def first_older_than(time)
+    load_one dataset.filter("created_at < ?", time)
+  end
+
+  def first_newer_than(time)
+    load_one dataset.filter("created_at > ?", time)
+  end
+
+  def add(memoir)
+    dataset.insert(memoir.attributes.merge(created_at: Time.now.utc))
   end
 
   protected
 
+  def load(records)
+    records.map{ |record| Memoir.new(record) }
+  end
+
+  def load_one(dataset)
+    dataset.limit(1).map{ |record| Memoir.new(record) }.first
+  end
+
   def dataset
-    DB[:memoirs]
+    DB[:memoirs].reverse_order(:created_at)
   end
 end
 
@@ -67,7 +91,7 @@ end
 # GET /123
 # Show page.
 get %r{^/([0-9]+)$} do |number|
-  @memoir = Memoir.find_by_number(number.to_i)
+  @memoir = Memoirs.find_by_number(number.to_i)
   haml :show
 end
 

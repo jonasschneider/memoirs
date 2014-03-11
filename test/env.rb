@@ -1,4 +1,5 @@
-ENV['RACK_ENV'] = 'test'
+ENV['RACK_ENV'] ||= 'test'
+ENV['DATABASE_URL'] ||= "postgres://jonas@localhost/memoirs_test"
 
 require "rubygems"
 require "bundler/setup"

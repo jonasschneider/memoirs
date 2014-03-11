@@ -1,10 +1,14 @@
 class Memoir
   attr_accessor :id, :body, :editor, :created_at
+
   def initialize(attributes)
     attributes.each do |k,v|
-
       self.send("#{k}=".to_sym, v)
     end
+  end
+
+  def attributes
+    { body: body, editor: editor }
   end
 
   # include Mongoid::Document
@@ -32,26 +36,16 @@ class Memoir
     true
   end
 
-  def self.find_by_number(number)
-    Memoir.asc(:created_at).skip(number-1).first
-  end
-
-
-  def update_created_at
-    self.created_at = Time.now.utc
-  end
-
   def number
-    Memoirs.filter("created_at < ?", created_at).count + 1
+    Memoirs.count_older_than(created_at) + 1
   end
 
   def previous
-    Memoir.where(:created_at.lt => created_at).desc(:created_at).first
+    Memoirs.first_older_than(created_at)
   end
 
-
   def next
-    Memoir.where(:created_at.gt => created_at).asc(:created_at).first
+    Memoirs.first_newer_than(created_at)
   end
 
   QUOTE_EX = /^"(.*)"(?: - (.*))?$/m
