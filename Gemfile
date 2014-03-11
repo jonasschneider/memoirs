@@ -1,16 +1,23 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem "mongoid", "2.0.0.beta.20"
+gem "mongoid"
 gem "bson_ext"
-gem "mongoid_fulltext", :git => "git://github.com/jonasschneider/mongoid_fulltext.git"
+gem "mongoid_fulltext"
+
+gem "sequel"
+gem "pg"
 
 gem "sinatra"
 gem "haml"
+gem "sass"
 
 gem "json"
 gem "rest-client"
 gem "rest-graph"
 gem "activesupport"
+
+gem "racksh"
+gem "pry"
 
 group :development, :test do
   gem "shotgun"

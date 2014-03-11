@@ -8,7 +8,7 @@
     .memoir-separator
 
 #pagination
-  - if (@skip + 3) < Memoir.count
+  - if (@skip + 3) < Memoirs.count
     %span.left
       %a{ :href => "?skip=#{@skip+3}"} « Ältere
   - if @skip > 0

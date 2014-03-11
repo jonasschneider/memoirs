@@ -18,14 +18,8 @@ configure :production do
   set :haml, :format => :html5, :ugly => true
 end
 
-Mongoid.database = 
-  if ENV['MONGOHQ_URL']
-    uri = URI.parse(ENV['MONGOHQ_URL'])
-    Mongo::Connection.from_uri(ENV['MONGOHQ_URL']).db(uri.path.gsub(/^\//, ''))
-  else
-    Mongo::Connection.from_uri(ENV["MONGO"] || 'mongodb://localhost').db("memoirs_#{ENV["RACK_ENV"]}")
-  end
-
+require 'sequel'
+DB = Sequel.connect(ENV["DATABASE_URL"])
 
 use Rack::Session::Cookie, :expire_after => 34128000
 
@@ -39,11 +33,33 @@ helpers do
   include Rack::Utils
 end
 
+class MemoirRepo
+  def list(offset)
+    dataset.offset(offset).limit(3).map{|r|Memoir.new(r)}
+  end
+
+  def count
+    dataset.count
+  end
+
+  def method_missing(x, *args)
+    dataset.send(x, *args)
+  end
+
+  protected
+
+  def dataset
+    DB[:memoirs]
+  end
+end
+
+Memoirs = MemoirRepo.new
+
 # GET /
 # Index page.
 get '/' do
   @skip = (params[:skip] && params[:skip].to_i) || 0
-  @memoirs = Memoir.desc(:created_at).skip(@skip).limit(3).to_a
+  @memoirs = Memoirs.list(@skip)
   haml :index
 end
 
