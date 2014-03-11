@@ -54,13 +54,18 @@ class Memoir
     Memoir.where(:created_at.gt => created_at).asc(:created_at).first
   end
 
+  QUOTE_EX = /^"(.*)"(?: - (.*))?$/m
 
   def is_quote?
-    body && !quoted_text.nil?
+    body && body.match(QUOTE_EX)
   end
 
   def quoted_text
-    $1.gsub("\n", "<br />") if body.match(/^"(.*)"$/m)
+    $1.gsub("\n", "<br />") if body.match(QUOTE_EX)
+  end
+
+  def quote_source
+    $2 if body.match(QUOTE_EX)
   end
 
   def is_dialogue?

@@ -6,7 +6,7 @@
   %span.number= memoir.number
   - if memoir.is_quote?
     %p.quote= enquote memoir.quoted_text
-    %p.quotesource= memoir.person
+    %p.quotesource= memoir.quote_source
   - elsif memoir.is_dialogue?
     - reset_cycle
     - memoir.dialogue_lines.each do |line|
