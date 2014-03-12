@@ -62,9 +62,9 @@ class MemoirsTest < Test::Unit::TestCase
   end
 
   def test_it_searches
-    a = Memoir.create!(:body => 'ohaiSHOWSTOPPER', :editor => 'lol')
-    b = Memoir.create!(:body => 'oomatch', :editor => 'lol')
-    c = Memoir.create!(:body => 'oo', :editor => 'lolmatch')
+    a = Memoirs.add(Memoir.new(:body => 'ohaiSHOWSTOPPER', :editor => 'lol'))
+    b = Memoirs.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))
+    c = Memoirs.add(Memoir.new(:body => 'oo', :editor => 'lolmatch'))
 
     get "/search", :query => "match"
     assert last_response.body.include?('oomatch')

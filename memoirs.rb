@@ -77,6 +77,11 @@ class MemoirRepo
     dataset.filter('id = ?', id).delete
   end
 
+  def fulltext_search(query_string)
+    like = "%#{query_string}%"
+    dataset.filter('editor like ? or body like ?', like)
+  end
+
   protected
 
   def load(records)
@@ -121,7 +126,7 @@ end
 # GET /search
 # Full-text search.
 get '/search' do
-  @memoirs = Memoir.fulltext_search(params[:query], { :return_scores => true }).select{|d|d[1] > 1}.sort_by{|d| d[1]}.map{|d|d[0]}.reverse
+  @memoirs = Memoirs.fulltext_search(params[:query])
   @skip = (params[:skip] && params[:skip].to_i) || 0
   haml :index
 end
