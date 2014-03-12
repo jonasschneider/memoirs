@@ -4,4 +4,4 @@ require "bundler/setup"
 $:.unshift '.'
 require 'memoirs'
 
-run Sinatra::Application
+run App

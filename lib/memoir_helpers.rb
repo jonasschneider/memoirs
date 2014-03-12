@@ -1,8 +1,16 @@
 module MemoirHelpers
   include Haml::Helpers
 
+  def url_for(path)
+    request.base_url + request.script_name + path
+  end
+
+  def category_url(id)
+    request.base_url + "/#{Categories[id]}"
+  end
+
   def url_for_memoir(memoir)
-    "http://#{request.host_with_port}/#{memoir.number}"
+    url_for("/#{memoir.number}")
   end
 
   def protected!

@@ -12,22 +12,22 @@
 %body
   %ul#category-selector
     %li.active
-      %a{ href: '/' } Memoiren der Kursstufe
+      %a{ href: category_url(1) } Memoiren der Kursstufe
     %li
-      %a{ href: '/' } Memoiren für alle!
+      %a{ href: category_url(2) } Memoiren für alle!
     %li
-      %a{ href: '/' } Memoiren des Auditoriums
+      %a{ href: category_url(3) } Memoiren des Auditoriums
   #wrapper
     #header
       - if ENV['SITE_NAME']
         %h1
-          %a{ :href => '/' }= ENV['SITE_NAME']
+          %a{ :href => url_for('/') }= ENV['SITE_NAME']
       - else
         %h1
-          %a{ :href => '/' } Memoiren der Kursstufe
+          %a{ :href => url_for('/') } Memoiren der Kursstufe
         %h5 von Jonas Schneider
       - if @header
         %h3= @header
-      %form{ :action => '/search' }
+      %form{ :action => url_for('/search') }
         %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
     #content= yield
