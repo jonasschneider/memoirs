@@ -22,7 +22,5 @@
       - if @current_category.by_me?
         %h5 von Jonas Schneider
       - if @header
-        %h3= @header
-      %form{ :action => url_for('/search') }
-        %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
+        = @header
     #content= yield

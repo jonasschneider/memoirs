@@ -28,12 +28,12 @@ Typo-Sonderzeichen:
     ---   <- Em dash
 
 
-    def migrate(x)
+    def migrate(x, cat)
       cleaned = x["text"].gsub("\u2014", "---").gsub("\u2013", "--")
 
       if x["text"].match(/^"(.*)"$/m)
-        DB[:memoirs].insert(body: cleaned+" - "+x["person"], editor: "Jonas", created_at: Time.at(x["created_at"]/1000))
+        DB[:memoirs].insert(category_id: cat, body: cleaned+" - "+x["person"], editor: "Jonas", created_at: Time.at(x["created_at"]/1000))
       else
-        DB[:memoirs].insert(body: cleaned, editor: x["person"], created_at: Time.at(x["created_at"]/1000))
+        DB[:memoirs].insert(category_id: cat, body: cleaned, editor: x["person"], created_at: Time.at(x["created_at"]/1000))
       end
     end

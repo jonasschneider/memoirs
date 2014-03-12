@@ -1,3 +1,7 @@
+- header do
+  %form{ :action => url_for('/search') }
+    %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
+
 - if authorized?
   %h5
     %a{ :href => url_for("/new") } Neu
