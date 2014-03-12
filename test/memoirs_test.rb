@@ -4,7 +4,7 @@ class MemoirsTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def setup
-    Memoirs.delete
+    DB[:memoirs].delete
   end
 
   def app
@@ -21,7 +21,7 @@ class MemoirsTest < Test::Unit::TestCase
   end
 
   def test_it_shows_single_memoir
-    Memoir.create!(:text => 'o lol', :person => 'lol')
+    Memoir.create!(:body => 'o lol', :editor => 'lol')
 
     get '/1'
 
@@ -30,7 +30,7 @@ class MemoirsTest < Test::Unit::TestCase
   end
 
   def test_it_deprecates_old_routes
-    memoir = Memoir.create!(:text => "o lol", :person => 'lol')
+    memoir = Memoir.create!(:body => "o lol", :editor => 'lol')
 
     get "/show/#{memoir.id}"
 
@@ -41,7 +41,7 @@ class MemoirsTest < Test::Unit::TestCase
   def test_it_creates_memoirs
     basic_authorize 'jonas', 'jonas'
 
-    post '/', :memoir => { :text => "sup guys", :person => 'me' }
+    post '/', :memoir => { :body => "sup guys", :editor => 'me' }
     follow_redirect!
 
     assert last_response.ok?
@@ -50,9 +50,9 @@ class MemoirsTest < Test::Unit::TestCase
 
   def test_it_updates_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir = Memoir.create!(:text => 'o lol', :person => 'lol')
+    memoir = Memoir.create!(:body => 'o lol', :editor => 'lol')
 
-    post "/update/#{memoir.id}", :memoir => { :text => "sup guys", :person => 'me' }
+    post "/update/#{memoir.id}", :memoir => { :body => "sup guys", :editor => 'me' }
     assert_equal 'http://example.org/1', last_response.headers['Location']
     follow_redirect!
 
@@ -64,16 +64,16 @@ class MemoirsTest < Test::Unit::TestCase
 
   def test_it_deletes_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir = Memoir.create!(:text => 'o lol', :person => 'lol')
+    memoir = Memoir.create!(:body => 'o lol', :editor => 'lol')
 
     get "/delete/#{memoir.id}"
     assert_equal 0, Memoir.count
   end
 
   def test_it_searches
-    a = Memoir.create!(:text => 'ohaiSHOWSTOPPER', :person => 'lol')
-    b = Memoir.create!(:text => 'oomatch', :person => 'lol')
-    c = Memoir.create!(:text => 'oo', :person => 'lolmatch')
+    a = Memoir.create!(:body => 'ohaiSHOWSTOPPER', :editor => 'lol')
+    b = Memoir.create!(:body => 'oomatch', :editor => 'lol')
+    c = Memoir.create!(:body => 'oo', :editor => 'lolmatch')
 
     get "/search", :query => "match"
     assert last_response.body.include?('oomatch')

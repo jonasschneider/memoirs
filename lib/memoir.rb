@@ -11,23 +11,9 @@ class Memoir
     { body: body, editor: editor }
   end
 
-  # include Mongoid::Document
-  # include Mongoid::FullTextSearch
-
-  # field :first_name
-  # field :last_name
-
-  # field :text
-  # field :person
-  # field :created_at, :type => DateTime
-
-  # fulltext_search_in :text, :person
-
-  # validates_presence_of :text
-
-  # before_create :update_created_at
-
-  # before_save :maybe_escape
+  def valid?
+    attributes.all?{|k,v| !v.nil? }
+  end
 
   def maybe_escape
     if ENV["SITE_NAME"]

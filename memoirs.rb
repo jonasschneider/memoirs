@@ -22,7 +22,7 @@ end
 require 'sequel'
 DB = Sequel.connect(ENV["DATABASE_URL"])
 
-use Rack::Session::Cookie, :expire_after => 34128000
+use Rack::Session::Cookie, secret: "ohai"#ENV["SESSION_SECRET"]
 
 before do
   content_type 'text/html', :charset => 'utf-8'
@@ -60,6 +60,7 @@ class MemoirRepo
   end
 
   def add(memoir)
+    return false unless memoir.valid?
     dataset.insert(memoir.attributes.merge(created_at: Time.now.utc))
   end
 
@@ -134,11 +135,11 @@ end
 post '/' do
   protected!
   @memoir = Memoir.new(params[:memoir])
-  if @memoir.save
-    if production?
-      #Thread.new do
-      #  post_memoir_to_facebook(@memoir)
-      #end
+  if Memoirs.add(@memoir)
+    if ENV["POST_TO_FACEBOOK"]
+      Thread.new do
+        post_memoir_to_facebook(@memoir)
+      end
     end
     redirect '/'
   else
