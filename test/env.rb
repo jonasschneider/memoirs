@@ -1,6 +1,7 @@
 ENV['DATABASE_URL'] ||= "postgres://jonas@localhost/memoirs_test"
 ENV['LAX_TRANSPORT'] = "true"
 ENV['SESSION_SECRET'] = 'totally sekrit'
+ENV['RAISE_EXCEPTIONS'] = "true"
 
 require "rubygems"
 require "bundler/setup"
