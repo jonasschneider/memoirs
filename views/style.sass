@@ -165,7 +165,12 @@ h3
 
 
   p.dialogue
-    margin: 1.5em 0
+    padding: 1em 0
+    &:first-of-type
+      padding-top: 0
+    &:last-of-type
+      padding-bottom: 0
+
     display: flex
 
     .speaker
@@ -180,11 +185,6 @@ h3
       font-style: italic
       color: #aaa
       font-size: 22px
-
-    &:before
-      margin-right: -10px
-    &:after
-      margin-left: -10px
 
     &.a
       text-align: left
