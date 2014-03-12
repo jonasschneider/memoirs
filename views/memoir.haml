@@ -3,7 +3,8 @@
   - return "<span class=quotesym>„</span>#{text}<span class=quotesym>“</span>"
 
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
-  %span.number= memoir.number
+  %span.number
+    %a{ :href => url_for_memoir(memoir) }= memoir.number
   - if memoir.is_quote?
     %p.quote= enquote memoir.quoted_text
     - if memoir.quote_source

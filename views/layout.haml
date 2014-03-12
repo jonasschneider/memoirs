@@ -2,25 +2,12 @@
 %head
   %title= ENV['SITE_NAME'] || 'Memoiren der Kursstufe'
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/style.css' }
-  %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'handheld', :href => '/mobile.css' }
+  %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/fonts/stylesheet/style.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (max-width: 480px)', :href => '/mobile.css' }
-  %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (min-width: 500px)', :href => '/fonts/stylesheet.css' }
 
   %meta{ :name => 'description', :content => 'Die Memoiren der Kursstufe.' }
   %meta{ :name => 'keywords', :content => 'sprüche, kursstufe, schule, lehrer, kaindl, schüler, lustig, fichte, witze, zitate' }
-  %link{ :rel => 'alternate', :title => 'RSS Feed', :href => '/feed.rss', :type => 'application/rss+xml' }
-  %script{ :src => '/fonts.js'}
-  %script
-    :plain
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-22564891-1']);
-      _gaq.push(['_trackPageview']);
-    
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
+  %link{ :rel => 'alternate', :title => 'RSS', :href => '/feed.rss', :type => 'application/rss+xml' }
 
 %body
   #wrapper
@@ -35,5 +22,5 @@
       - if @header
         %h3= @header
       %form{ :action => '/search' }
-        %input#search_field{ :name => 'query', :placeholder => 'Suchen... (mit Enter)' }
+        %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
     #content= yield
