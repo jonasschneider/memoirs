@@ -41,7 +41,7 @@ class Memoir
   end
 
   def defacto_quote?
-    dialogue_lines.length == 1 && dialogue_lines.first[:speaker] && !dialogue_lines.first[:style]
+    body && dialogue_lines.length == 1 && dialogue_lines.first[:speaker] && !dialogue_lines.first[:style]
   end
 
   def defacto_quote_text
@@ -53,7 +53,7 @@ class Memoir
   end
 
   def dialogue_lines
-    lines = body.split("\n").map do |line|
+    body.split("\n").map do |line|
       if line.match(/^\[(.*)\](\(.*\))?\s*(.*)$/) # dialogue line
         { :speaker => $1, :message => $3, :style => $2 }
       elsif line.match(/^\((.+)\)/) # action line
