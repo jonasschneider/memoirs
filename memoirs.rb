@@ -43,6 +43,10 @@ class MemoirRepo
     dataset.count
   end
 
+  def find(id)
+    load_one dataset.filter('id = ?', id)
+  end
+
   def find_by_number(number)
     load_one dataset.order(:created_at).offset(number-1)
   end
@@ -62,6 +66,11 @@ class MemoirRepo
   def add(memoir)
     return false unless memoir.valid?
     dataset.insert(memoir.attributes.merge(created_at: Time.now.utc))
+  end
+
+  def update(memoir)
+    return false unless memoir.id && memoir.valid?
+    dataset.filter('id = ?', memoir.id).update(memoir.attributes)
   end
 
   protected
@@ -161,8 +170,9 @@ end
 # Memoir update.
 post '/update/:id' do
   protected!
-  @memoir = Memoir.find(params[:id])
-  if @memoir.update_attributes(params[:memoir])
+  @memoir = Memoirs.find(params[:id])
+  @memoir.update_attributes(body: params[:memoir]["body"], person: params[:memoir]["person"])
+  if Memoirs.update(@memoir)
     redirect url_for_memoir(@memoir)
   else
     haml :edit

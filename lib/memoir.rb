@@ -1,14 +1,18 @@
 class Memoir
   attr_accessor :id, :body, :editor, :created_at
 
-  def initialize(attributes = {})
-    attributes.each do |k,v|
-      self.send("#{k}=".to_sym, v)
-    end
+  def initialize(initial_attributes = {})
+    update_attributes(initial_attributes)
   end
 
   def attributes
     { body: body, editor: editor }
+  end
+
+  def update_attributes(new_attributes)
+    new_attributes.each do |k,v|
+      self.send("#{k}=".to_sym, v)
+    end
   end
 
   def valid?

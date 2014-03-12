@@ -50,15 +50,15 @@ class MemoirsTest < Test::Unit::TestCase
 
   def test_it_updates_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir = Memoir.create!(:body => 'o lol', :editor => 'lol')
+    memoir_id = Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
-    post "/update/#{memoir.id}", :memoir => { :body => "sup guys", :editor => 'me' }
+    post "/update/#{memoir_id}", :memoir => { :body => "sup guys", :editor => 'me' }
     assert_equal 'http://example.org/1', last_response.headers['Location']
     follow_redirect!
 
     assert last_response.ok?
-    memoir.reload
-    assert_equal "sup guys", memoir.text
+    memoir = Memoirs.find(memoir_id)
+    assert_equal "sup guys", memoir.body
     assert_match /sup guys/, last_response.body
   end
 
