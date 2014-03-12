@@ -29,7 +29,7 @@ Typo-Sonderzeichen:
 
 
     def migrate(x)
-      cleaned = x["text"].gsub("–", "---").gsub("–","--")
+      cleaned = x["text"].gsub("\u2014", "---").gsub("\u2013", "--")
 
       if x["text"].match(/^"(.*)"$/m)
         DB[:memoirs].insert(body: cleaned+" - "+x["person"], editor: "Jonas", created_at: Time.at(x["created_at"]/1000))
