@@ -88,9 +88,6 @@ h3
   &:focus
     outline: none
 
-.clearfix
-  clear: both
-
 .ornament
   position: relative
   margin: -1.6em 0 -1.6em
@@ -109,7 +106,6 @@ h3
 
 .memoir
   padding: 70px 0
-  clear: both
 
   font-family: 'Adobe Caslon Pro', Georgia, serif
 
@@ -168,14 +164,15 @@ h3
 
 
   p.dialogue
-    clear: both
-    margin: 10px 0
+    margin: 1.5em 0
+    display: flex
 
     .speaker
+      flex: none
       font-size: 90%
       color: #999
       text-transform: uppercase
-      margin: 1.2em 1.5em
+      margin: 0.8em 2em
       text-shadow: none
 
     .style, .action
@@ -189,16 +186,11 @@ h3
       margin-left: -10px
 
     &.a
-      float: left
-
-      .speaker
-        float: left
+      text-align: left
 
     &.b
-      float: right
-
-      .speaker
-        float: right
+      flex-direction: row-reverse
+      text-align: right
 
 .memoir-separator
   height: 1px
