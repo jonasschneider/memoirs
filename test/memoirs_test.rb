@@ -21,21 +21,12 @@ class MemoirsTest < Test::Unit::TestCase
   end
 
   def test_it_shows_single_memoir
-    Memoir.create!(:body => 'o lol', :editor => 'lol')
+    Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
     get '/1'
 
     assert last_response.ok?
     assert_match /o lol/, last_response.body
-  end
-
-  def test_it_deprecates_old_routes
-    memoir = Memoir.create!(:body => "o lol", :editor => 'lol')
-
-    get "/show/#{memoir.id}"
-
-    assert last_response.redirect?
-    assert_equal 'http://example.org/1', last_response.headers['Location']
   end
 
   def test_it_creates_memoirs
@@ -64,10 +55,10 @@ class MemoirsTest < Test::Unit::TestCase
 
   def test_it_deletes_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir = Memoir.create!(:body => 'o lol', :editor => 'lol')
+    memoir_id = Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
-    get "/delete/#{memoir.id}"
-    assert_equal 0, Memoir.count
+    get "/delete/#{memoir_id}"
+    assert_equal 0, Memoirs.count
   end
 
   def test_it_searches

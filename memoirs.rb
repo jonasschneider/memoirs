@@ -73,6 +73,10 @@ class MemoirRepo
     dataset.filter('id = ?', memoir.id).update(memoir.attributes)
   end
 
+  def delete(id)
+    dataset.filter('id = ?', id).delete
+  end
+
   protected
 
   def load(records)
@@ -104,14 +108,6 @@ end
 get %r{^/([0-9]+)$} do |number|
   @memoir = Memoirs.find_by_number(number.to_i)
   haml :show
-end
-
-
-# GET /show/abc4fc45dea56f
-# Legacy show.
-get '/show/:id' do
-  memoir = Memoir.find(params[:id])
-  redirect url_for_memoir(memoir)
 end
 
 # GET /random
@@ -171,7 +167,7 @@ end
 post '/update/:id' do
   protected!
   @memoir = Memoirs.find(params[:id])
-  @memoir.update_attributes(body: params[:memoir]["body"], person: params[:memoir]["person"])
+  @memoir.update_attributes(body: params[:memoir]["body"], editor: params[:memoir]["editor"])
   if Memoirs.update(@memoir)
     redirect url_for_memoir(@memoir)
   else
@@ -184,8 +180,7 @@ end
 # Memoir deletion.
 get '/delete/:id' do
   protected!
-  @memoir = Memoir.find(params[:id])
-  @memoir.delete
+  Memoirs.delete(params[:id])
   redirect "/"
 end
 
