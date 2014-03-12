@@ -13,10 +13,10 @@
   #wrapper
     #header
       - if ENV['SITE_NAME']
-        %h2
+        %h1
           %a{ :href => '/' }= ENV['SITE_NAME']
       - else
-        %h2
+        %h1
           %a{ :href => '/' } Memoiren der Kursstufe
         %h5 von Jonas Schneider
       - if @header
