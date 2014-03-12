@@ -64,11 +64,11 @@ class MemoirsTest < Test::Unit::TestCase
   def test_it_searches
     a = Memoirs.add(Memoir.new(:body => 'ohaiSHOWSTOPPER', :editor => 'lol'))
     b = Memoirs.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))
-    c = Memoirs.add(Memoir.new(:body => 'oo', :editor => 'lolmatch'))
+    c = Memoirs.add(Memoir.new(:body => 'xxmatchxx', :editor => 'ohai'))
 
     get "/search", :query => "match"
     assert last_response.body.include?('oomatch')
-    assert last_response.body.include?('lolmatch')
+    assert last_response.body.include?('xxmatchxx')
     assert !last_response.body.include?('SHOWSTOPPER')
   end
 end

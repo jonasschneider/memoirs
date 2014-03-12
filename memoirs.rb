@@ -79,7 +79,7 @@ class MemoirRepo
 
   def fulltext_search(query_string)
     like = "%#{query_string}%"
-    dataset.filter('editor like ? or body like ?', like)
+    load dataset.filter('body like ?', like)
   end
 
   protected
