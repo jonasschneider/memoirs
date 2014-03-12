@@ -12,17 +12,14 @@
 %body
   %ul#category-selector
     - Categories.each do |id, cat|
-      %li
+      %li{ class: cat == @current_category ? 'active' : nil }
         %a{ href: category_url(id) }= cat.name
 
   #wrapper
     #header
-      - if ENV['SITE_NAME']
-        %h1
-          %a{ :href => url_for('/') }= ENV['SITE_NAME']
-      - else
-        %h1
-          %a{ :href => url_for('/') } Memoiren der Kursstufe
+      %h1
+        %a{ :href => url_for('/') }= @current_category.name
+      - if @current_category.by_me?
         %h5 von Jonas Schneider
       - if @header
         %h3= @header

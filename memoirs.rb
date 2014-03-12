@@ -48,7 +48,7 @@ App = Rack::Builder.new {
 
   Categories.each do |cat_id, cat|
     map "/#{cat.mnemonic}" do
-      run CategoryApp.new(MemoirRepo.new(cat_id))
+      run CategoryApp.new(cat_id)
     end
   end
 

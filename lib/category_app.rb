@@ -1,6 +1,7 @@
 class CategoryApp < Sinatra::Base
-  def initialize(memoir_repo)
-    @memoir_repo = memoir_repo
+  def initialize(category_id)
+    @memoir_repo = MemoirRepo.new(category_id)
+    @current_category = Categories[category_id]
     super()
   end
 
