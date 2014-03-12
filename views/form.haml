@@ -1,9 +1,10 @@
 %script{ :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' }
 
 %p
-  %input.memoir_field{ :name => 'memoir[person]', :placeholder => 'Name (optional)', :value => memoir.person } sagte...
+  %textarea.memoir_field{ :name => 'memoir[body]', :placeholder => 'Text', :cols => 50, :rows => 10 }= memoir.body
 %p
-  %textarea.memoir_field{ :name => 'memoir[text]', :placeholder => 'Text', :cols => 30, :rows => 10 }= memoir.text
+  %small
+    %input.memoir_field{ :name => 'memoir[editor]', :placeholder => 'Sachbearbeiter (optional)', :value => memoir.editor }
 %p
   %input{ :type => 'submit', :value => 'Speichern' }
 
@@ -16,20 +17,6 @@
         Cufon.replace('.memoir p');
       });
     })
-%pre
-  :preserve
-    Formatierungshilfe:
 
-    Ich bin ein Text. <- Der Text steht ganz frei da.
-
-    "Hohoho." <- Hier wird der "Name" von obendrüber als Zitatautor angezeigt.
-    
-    [A] Ich bin Redner A.
-    [B] Ich bin Redner B.
-    
-    [A] Ich bin Redner B.
-    [B](überrascht) Ähm. Nein?
-    (A haut B um)
-    [A] Jetzt schon.
-
-    Em: —   En: –
+- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+%section{ style: "text-align: left"}~ markdown.render(File.read("README.md"))

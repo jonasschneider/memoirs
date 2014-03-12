@@ -10,6 +10,7 @@ gem "pg"
 gem "sinatra"
 gem "haml"
 gem "sass"
+gem "redcarpet"
 
 gem "json"
 gem "rest-client"

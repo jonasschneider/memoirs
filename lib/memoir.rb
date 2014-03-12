@@ -1,7 +1,7 @@
 class Memoir
   attr_accessor :id, :body, :editor, :created_at
 
-  def initialize(attributes)
+  def initialize(attributes = {})
     attributes.each do |k,v|
       self.send("#{k}=".to_sym, v)
     end
