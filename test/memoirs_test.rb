@@ -59,7 +59,7 @@ class MemoirsTest < Test::Unit::TestCase
     b = @repo.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))
     c = @repo.add(Memoir.new(:body => 'xxmatchxx', :editor => 'ohai'))
 
-    get "/search", :query => "match"
+    get "/search", :query => "maTCh"
     assert last_response.body.include?('oomatch')
     assert last_response.body.include?('xxmatchxx')
     assert !last_response.body.include?('SHOWSTOPPER')
