@@ -70,7 +70,7 @@ class MemoirRepo
   end
 
   def first_newer_than(time)
-    load_one dataset.filter("created_at > ?", time)
+    load_one dataset.filter("created_at > ?", time).order(:created_at)
   end
 
   def load(records)
