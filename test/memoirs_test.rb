@@ -54,14 +54,6 @@ class MemoirsTest < Test::Unit::TestCase
     assert_match /sup guys/, last_response.body
   end
 
-  def test_it_deletes_memoirs
-    basic_authorize 'jonas', 'jonas'
-    memoir_id = @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
-
-    get "/delete/#{memoir_id}"
-    assert_equal 0, @repo.count
-  end
-
   def test_it_searches
     a = @repo.add(Memoir.new(:body => 'ohaiSHOWSTOPPER', :editor => 'lol'))
     b = @repo.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))

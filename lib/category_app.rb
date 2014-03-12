@@ -108,16 +108,6 @@ class CategoryApp < Sinatra::Base
     end
   end
 
-
-  # GET /delete/:id
-  # Memoir deletion.
-  get '/delete/:id' do
-    protected!
-    @memoir_repo.delete(params[:id])
-    redirect url_for('/')
-  end
-
-
   # GET /preview
   # Ajax-powered memoir preview.
   get '/preview' do

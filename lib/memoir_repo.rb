@@ -50,10 +50,6 @@ class MemoirRepo
     dataset.filter('id = ?', memoir.id).update(memoir.attributes)
   end
 
-  def delete(id)
-    dataset.filter('id = ?', id).delete
-  end
-
   def fulltext_search(query_string)
     like = "%#{query_string}%"
     load dataset.filter('body like ?', like)
