@@ -7,7 +7,6 @@ Sinatra::Base.configure do |c|
   c.set :raise_errors, true
 end
 
-require "rack-ssl-enforcer"
 require "haml"
 require "sass"
 require 'redcarpet'
@@ -63,8 +62,6 @@ class Frontpage
 end
 
 App = Rack::Builder.new {
-  use Rack::ShowExceptions  if ENV["SHOW_EXCEPTIONS"]
-  use Rack::SslEnforcer, hsts: true unless ENV["ALLOW_NON_HTTPS"]
   use Rack::Session::Cookie, secret: ENV["SESSION_SECRET"]
 
   use Assets

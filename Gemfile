@@ -9,6 +9,7 @@ gem "pg"
 
 gem "sinatra"
 gem 'rack-ssl-enforcer'
+gem 'rack-canonical-host'
 
 gem "haml"
 gem "sass"
