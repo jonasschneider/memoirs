@@ -1,4 +1,8 @@
 class MemoirRepo
+  def initialize(category_id)
+    @dataset = DB[:memoirs].where('category_id = ?', category_id).reverse_order(:created_at)
+  end
+
   def list(offset)
     load dataset.offset(offset).limit(3)
   end
@@ -19,20 +23,20 @@ class MemoirRepo
     load_one dataset.order(:created_at).offset(number-1)
   end
 
+  def number(memoir)
+    count_older_than(memoir.created_at) + 1
+  end
+
+  def previous(to_memoir)
+    first_older_than(to_memoir.created_at)
+  end
+
+  def next(to_memoir)
+    first_newer_than(to_memoir.created_at)
+  end
+
   def sample
     load_one dataset.offset((Kernel.rand*(dataset.count)).to_i)
-  end
-
-  def count_older_than(time)
-    dataset.filter("created_at < ?", time).count
-  end
-
-  def first_older_than(time)
-    load_one dataset.filter("created_at < ?", time)
-  end
-
-  def first_newer_than(time)
-    load_one dataset.filter("created_at > ?", time)
   end
 
   def add(memoir)
@@ -56,6 +60,18 @@ class MemoirRepo
 
   protected
 
+  def count_older_than(time)
+    dataset.filter("created_at < ?", time).count
+  end
+
+  def first_older_than(time)
+    load_one dataset.filter("created_at < ?", time)
+  end
+
+  def first_newer_than(time)
+    load_one dataset.filter("created_at > ?", time)
+  end
+
   def load(records)
     records.map{ |record| Memoir.new(record) }
   end
@@ -65,6 +81,6 @@ class MemoirRepo
   end
 
   def dataset
-    DB[:memoirs].reverse_order(:created_at)
+    @dataset
   end
 end

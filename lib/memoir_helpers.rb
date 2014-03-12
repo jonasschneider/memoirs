@@ -2,6 +2,7 @@ module MemoirHelpers
   include Haml::Helpers
 
   def url_for(path)
+    path = "" if path == "/"
     request.base_url + request.script_name + path
   end
 
@@ -10,7 +11,7 @@ module MemoirHelpers
   end
 
   def url_for_memoir(memoir)
-    url_for("/#{memoir.number}")
+    url_for("/#{@memoir_repo.number(memoir)}")
   end
 
   def protected!

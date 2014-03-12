@@ -4,7 +4,7 @@
 
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   %span.number
-    %a{ :href => url_for_memoir(memoir) }= memoir.number
+    %a{ :href => url_for_memoir(memoir) }= @memoir_repo.number(memoir)
   - if memoir.is_quote?
     %p.quote= enquote memoir.quoted_text
     - if memoir.quote_source
@@ -29,6 +29,6 @@
   .clearfix
   - unless defined?(skip_details)
     .details
-      %a{ :href => url_for_memoir(memoir) }== Nummer #{memoir.number} vom #{format_date(memoir.created_at)}
+      %a{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date(memoir.created_at)}
       - if defined? on_show_page
         = facebook_like_button

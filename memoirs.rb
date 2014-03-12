@@ -24,8 +24,6 @@ Categories = {
   3 => 'memoiren-des-auditoriums',
 }
 
-Memoirs = MemoirRepo.new
-
 class Assets < Sinatra::Base
   # GET /style.css
   # Stylesheet.
@@ -48,7 +46,7 @@ App = Rack::Builder.new {
 
   Categories.each do |cat_id, cat_name|
     map "/#{cat_name}" do
-      run CategoryApp.new
+      run CategoryApp.new(MemoirRepo.new(cat_id))
     end
   end
 

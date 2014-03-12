@@ -1,11 +1,11 @@
-- @title = "Memoir Nummer #{@memoir.number}"
+- @title = "Memoir Nummer #{@memoir_repo.number(@memoir)}"
 
 - header do
-  - unless @memoir.previous.nil?
-    %a{ :href => url_for_memoir(@memoir.previous) } ←
-  == Nummer #{@memoir.number}
-  - unless @memoir.next.nil?
-    %a{ :href => url_for_memoir(@memoir.next) } →
+  - unless @memoir_repo.previous(@memoir).nil?
+    %a{ :href => url_for_memoir(@memoir_repo.previous(@memoir)) } ←
+  == Nummer #{@memoir_repo.number(@memoir)}
+  - unless @memoir_repo.next(@memoir).nil?
+    %a{ :href => url_for_memoir(@memoir_repo.next(@memoir)) } →
 
 - if authorized?
   %h5

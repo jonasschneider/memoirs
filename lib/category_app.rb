@@ -1,4 +1,9 @@
 class CategoryApp < Sinatra::Base
+  def initialize(memoir_repo)
+    @memoir_repo = memoir_repo
+    super()
+  end
+
   set :root, File.dirname(__FILE__)+"/.."
   helpers MemoirHelpers
 
@@ -22,7 +27,7 @@ class CategoryApp < Sinatra::Base
   # Index page.
   get '/' do
     @skip = (params[:skip] && params[:skip].to_i) || 0
-    @memoirs = Memoirs.list(@skip)
+    @memoirs = @memoir_repo.list(@skip)
     haml :index
   end
 
@@ -30,14 +35,14 @@ class CategoryApp < Sinatra::Base
   # GET /123
   # Show page.
   get %r{^/([0-9]+)$} do |number|
-    @memoir = Memoirs.find_by_number(number.to_i)
+    @memoir = @memoir_repo.find_by_number(number.to_i)
     haml :show
   end
 
   # GET /random
   # Redirect to a random memoir.
   get '/random' do
-    memoir = Memoirs.sample
+    memoir = @memoir_repo.sample
     redirect url_for_memoir(memoir)
   end
 
@@ -45,7 +50,7 @@ class CategoryApp < Sinatra::Base
   # GET /search
   # Full-text search.
   get '/search' do
-    @memoirs = Memoirs.fulltext_search(params[:query])
+    @memoirs = @memoir_repo.fulltext_search(params[:query])
     haml :index
   end
 
@@ -63,7 +68,7 @@ class CategoryApp < Sinatra::Base
   post '/' do
     protected!
     @memoir = Memoir.new(params[:memoir])
-    if Memoirs.add(@memoir)
+    if @memoir_repo.add(@memoir)
       if ENV["POST_TO_FACEBOOK"]
         Thread.new do
           post_memoir_to_facebook(@memoir)
@@ -89,9 +94,9 @@ class CategoryApp < Sinatra::Base
   # Memoir update.
   post '/update/:id' do
     protected!
-    @memoir = Memoirs.find(params[:id])
+    @memoir = @memoir_repo.find(params[:id])
     @memoir.update_attributes(body: params[:memoir]["body"], editor: params[:memoir]["editor"])
-    if Memoirs.update(@memoir)
+    if @memoir_repo.update(@memoir)
       redirect url_for_memoir(@memoir)
     else
       haml :edit
@@ -103,7 +108,7 @@ class CategoryApp < Sinatra::Base
   # Memoir deletion.
   get '/delete/:id' do
     protected!
-    Memoirs.delete(params[:id])
+    @memoir_repo.delete(params[:id])
     redirect url_for('/')
   end
 
@@ -118,7 +123,7 @@ class CategoryApp < Sinatra::Base
   # GET /feed.rss
   # RSS feed.
   get '/feed.rss' do
-    @memoirs = Memoirs.first_n(15)
+    @memoirs = @memoir_repo.first_n(15)
     content_type 'application/rss+xml', :charset => 'utf-8'
     builder :rss
   end

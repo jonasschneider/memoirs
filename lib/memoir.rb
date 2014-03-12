@@ -26,18 +26,6 @@ class Memoir
     true
   end
 
-  def number
-    Memoirs.count_older_than(created_at) + 1
-  end
-
-  def previous
-    Memoirs.first_older_than(created_at)
-  end
-
-  def next
-    Memoirs.first_newer_than(created_at)
-  end
-
   QUOTE_EX = /^"(.*)"(?: - (.*))?$/m
 
   def is_quote?
