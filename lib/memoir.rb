@@ -2,6 +2,8 @@ class Memoir
   attr_accessor :id, :body, :editor, :created_at
 
   def initialize(initial_attributes = {})
+    self.body = ""
+    self.editor = ""
     update_attributes(initial_attributes)
   end
 
@@ -23,7 +25,7 @@ class Memoir
 
   def is_quote?
     return true if defacto_quote?
-    body && body.match(QUOTE_EX)
+    body.match(QUOTE_EX)
   end
 
   def quoted_text
@@ -41,7 +43,7 @@ class Memoir
   end
 
   def defacto_quote?
-    body && dialogue_lines.length == 1 && dialogue_lines.first[:speaker] && !dialogue_lines.first[:style]
+    dialogue_lines.length == 1 && dialogue_lines.first[:speaker] && !dialogue_lines.first[:style]
   end
 
   def defacto_quote_text
