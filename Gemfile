@@ -8,7 +8,7 @@ gem "sequel"
 gem "pg"
 
 gem "sinatra"
-gem 'rack-ssl-enforcer'
+gem 'rack-ssl'
 gem 'rack-canonical-host'
 
 gem "haml"

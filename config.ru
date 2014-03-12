@@ -6,11 +6,12 @@ require "bundler/setup"
 $:.unshift '.'
 require 'memoirs'
 
-require "rack-ssl-enforcer"
+require "rack-ssl"
 require "rack-canonical-host"
 
+HOST = "memoirs.jonasschneider.com"
 use Rack::ShowExceptions if ENV["SHOW_EXCEPTIONS"]
-use Rack::SslEnforcer, hsts: true unless ENV["ALLOW_NON_HTTPS"]
-use Rack::CanonicalHost, 'memoirs.jonasschneider.com' unless ENV["NO_FORCE_HOST"]
+use Rack::SSL, host: HOST unless ENV["ALLOW_NON_HTTPS"]
+use Rack::CanonicalHost, HOST unless ENV["NO_FORCE_HOST"]
 
 run App
