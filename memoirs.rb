@@ -55,6 +55,10 @@ class MemoirRepo
     load_one dataset.order(:created_at).offset(number-1)
   end
 
+  def sample
+    load_one dataset.offset((Kernel.rand*(dataset.count)).to_i)
+  end
+
   def count_older_than(time)
     dataset.filter("created_at < ?", time).count
   end
@@ -122,7 +126,7 @@ end
 # GET /random
 # Redirect to a random memoir.
 get '/random' do
-  memoir = Memoir.skip((rand*(Memoir.count)).to_i).first
+  memoir = Memoirs.sample
   redirect url_for_memoir(memoir)
 end
 

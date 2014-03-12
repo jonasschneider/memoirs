@@ -75,4 +75,8 @@ class MemoirsTest < Test::Unit::TestCase
   def test_rss
     get "/feed.rss"
   end
+
+  def test_random
+    get "/random"
+  end
 end
