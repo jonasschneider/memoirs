@@ -3,4 +3,5 @@ DB.create_table :memoirs do
   String :body
   String :editor
   Time :created_at # i actually rely on this being unique as well
+  Integer :category_id
 end

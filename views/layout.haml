@@ -10,6 +10,13 @@
   %link{ :rel => 'alternate', :title => 'RSS', :href => '/feed.rss', :type => 'application/rss+xml' }
 
 %body
+  %ul#category-selector
+    %li.active
+      %a{ href: '/' } Memoiren der Kursstufe
+    %li
+      %a{ href: '/' } Memoiren für alle!
+    %li
+      %a{ href: '/' } Memoiren des Auditoriums
   #wrapper
     #header
       - if ENV['SITE_NAME']

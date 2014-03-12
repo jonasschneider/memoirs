@@ -23,6 +23,28 @@ body
   font-family: 'Adobe Caslon Pro', Georgia, serif
   height: 100%
 
+#category-selector
+  opacity: 0.8
+  background: black
+
+  > li
+    display: inline-block
+
+  > li > a
+    display: inline-block
+    color: white
+    opacity: 0.5
+    text-transform: uppercase
+    font-family: 'Helvetica Neue'
+    font-weight: 100
+    font-size: 70%
+    letter-spacing: 2px
+    padding: 1em 1.7em
+
+  > li.active > a, > li:hover > a
+    opacity: 0.8
+
+
 #wrapper
   :width 850px
   :margin auto
