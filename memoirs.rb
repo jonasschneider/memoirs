@@ -43,6 +43,10 @@ class MemoirRepo
     dataset.count
   end
 
+  def first_n(n)
+    load dataset.limit(n)
+  end
+
   def find(id)
     load_one dataset.filter('id = ?', id)
   end
@@ -212,11 +216,10 @@ get '/mobile.css' do
   sass :mobile
 end
 
-
 # GET /feed.rss
 # RSS feed.
 get '/feed.rss' do
-  @memoirs = Memoir.desc(:created_at).limit(15)
+  @memoirs = Memoirs.first_n(15)
   content_type 'application/rss+xml', :charset => 'utf-8'
   builder :rss
 end

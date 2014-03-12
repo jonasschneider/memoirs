@@ -71,4 +71,8 @@ class MemoirsTest < Test::Unit::TestCase
     assert last_response.body.include?('xxmatchxx')
     assert !last_response.body.include?('SHOWSTOPPER')
   end
+
+  def test_rss
+    get "/feed.rss"
+  end
 end
