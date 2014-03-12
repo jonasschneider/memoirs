@@ -14,7 +14,8 @@
     - memoir.dialogue_lines.each do |line|
       %p.dialogue{ :class => cycle }
         - if line[:speaker]
-          %span.speaker= line[:speaker]
+          - unless line[:speaker].blank?
+            %span.speaker= line[:speaker]
           - unless line[:style].nil?
             %span.style= line[:style]
           - unless line[:message].nil? || line[:message].empty?
