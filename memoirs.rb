@@ -18,10 +18,11 @@ require 'lib/category_app'
 require 'sequel'
 DB = Sequel.connect(ENV["DATABASE_URL"])
 
+Category = Struct.new(:mnemonic, :name, :by_me?, :the_original?)
 Categories = {
-  1 => 'memoiren-der-kursstufe',
-  2 => 'memoiren-fuer-alle',
-  3 => 'memoiren-des-auditoriums',
+  1 => Category.new('memoiren-der-kursstufe', 'Memoiren der Kursstufe', true, true),
+  2 => Category.new('memoiren-fuer-alle', 'Memoiren für alle!', false, false),
+  3 => Category.new('memoiren-des-auditoriums', 'Memoiren des Auditoriums', true, false),
 }
 
 class Assets < Sinatra::Base
@@ -43,12 +44,14 @@ end
 App = Rack::Builder.new {
   use Rack::SslEnforcer, hsts: true unless ENV["ALLOW_NON_HTTPS"]
   use Rack::Session::Cookie, secret: ENV["SESSION_SECRET"]
+  use Assets
 
-  Categories.each do |cat_id, cat_name|
-    map "/#{cat_name}" do
+  Categories.each do |cat_id, cat|
+    map "/#{cat.mnemonic}" do
       run CategoryApp.new(MemoirRepo.new(cat_id))
     end
   end
 
-  run Assets
+  # legacy category
+  run CategoryApp.new(MemoirRepo.new(1))
 }

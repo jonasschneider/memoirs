@@ -7,7 +7,7 @@ module MemoirHelpers
   end
 
   def category_url(id)
-    request.base_url + "/#{Categories[id]}"
+    request.base_url + "/#{Categories[id].mnemonic}"
   end
 
   def url_for_memoir(memoir)

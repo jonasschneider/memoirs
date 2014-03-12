@@ -11,12 +11,10 @@
 
 %body
   %ul#category-selector
-    %li.active
-      %a{ href: category_url(1) } Memoiren der Kursstufe
-    %li
-      %a{ href: category_url(2) } Memoiren für alle!
-    %li
-      %a{ href: category_url(3) } Memoiren des Auditoriums
+    - Categories.each do |id, cat|
+      %li
+        %a{ href: category_url(id) }= cat.name
+
   #wrapper
     #header
       - if ENV['SITE_NAME']
