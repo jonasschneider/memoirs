@@ -90,7 +90,7 @@ class CategoryApp < Sinatra::Base
   # Edit form.
   get '/edit/:id' do
     protected!
-    @memoir = Memoir.find(params[:id])
+    @memoir = @memoir_repo.find(params[:id])
     haml :edit
   end
 
