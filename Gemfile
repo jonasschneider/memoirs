@@ -8,6 +8,8 @@ gem "sequel"
 gem "pg"
 
 gem "sinatra"
+gem 'rack-ssl-enforcer'
+
 gem "haml"
 gem "sass"
 gem "redcarpet"

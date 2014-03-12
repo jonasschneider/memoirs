@@ -1,5 +1,6 @@
 require "digest/md5"
 require "sinatra"
+require "rack-ssl-enforcer"
 require "haml"
 require "sass"
 require 'redcarpet'
@@ -22,7 +23,8 @@ end
 require 'sequel'
 DB = Sequel.connect(ENV["DATABASE_URL"])
 
-use Rack::Session::Cookie, secret: "ohai"#ENV["SESSION_SECRET"]
+use Rack::SslEnforcer, hsts: true unless ENV["ALLOW_NON_HTTPS"]
+use Rack::Session::Cookie, secret: ENV["SESSION_SECRET"]
 
 before do
   content_type 'text/html', :charset => 'utf-8'
