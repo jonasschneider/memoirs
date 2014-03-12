@@ -7,14 +7,15 @@
   - if memoir != @memoirs.last
     .memoir-separator
 
-#pagination
-  - if (@skip + 3) < Memoirs.count
-    %span.left
-      %a{ :href => "?skip=#{@skip+3}"} « Ältere
-  - if @skip > 0
-    %span.right
-      %a{ :href => "?skip=#{@skip-3}"} Neuere »
-  .clearfix
+- if @skip
+  #pagination
+    - if (@skip + 3) < Memoirs.count
+      %span.left
+        %a{ :href => "?skip=#{@skip+3}"} « Ältere
+    - if @skip > 0
+      %span.right
+        %a{ :href => "?skip=#{@skip-3}"} Neuere »
+    .clearfix
 
 - unless ENV['SITE_NAME']
   #footer= faceboook_like_page_badge

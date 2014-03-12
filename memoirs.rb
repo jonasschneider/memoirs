@@ -137,7 +137,6 @@ end
 # Full-text search.
 get '/search' do
   @memoirs = Memoirs.fulltext_search(params[:query])
-  @skip = (params[:skip] && params[:skip].to_i) || 0
   haml :index
 end
 
