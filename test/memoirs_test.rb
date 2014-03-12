@@ -5,25 +5,26 @@ class MemoirsTest < Test::Unit::TestCase
 
   def setup
     DB[:memoirs].delete
+    @repo = MemoirRepo.new(1)
   end
 
   def app
-    Sinatra::Application
+    App
   end
 
   def test_it_shows_memoir_list
-    Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
+    @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
-    get '/'
+    get '/memoiren-der-kursstufe'
 
     assert last_response.ok?
     assert_match /o lol/, last_response.body
   end
 
   def test_it_shows_single_memoir
-    Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
+    @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
-    get '/1'
+    get '/memoiren-der-kursstufe/1'
 
     assert last_response.ok?
     assert_match /o lol/, last_response.body
@@ -41,30 +42,30 @@ class MemoirsTest < Test::Unit::TestCase
 
   def test_it_updates_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir_id = Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
+    memoir_id = @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
     post "/update/#{memoir_id}", :memoir => { :body => "sup guys", :editor => 'me' }
     assert_equal 'http://example.org/1', last_response.headers['Location']
     follow_redirect!
 
     assert last_response.ok?
-    memoir = Memoirs.find(memoir_id)
+    memoir = @repo.find(memoir_id)
     assert_equal "sup guys", memoir.body
     assert_match /sup guys/, last_response.body
   end
 
   def test_it_deletes_memoirs
     basic_authorize 'jonas', 'jonas'
-    memoir_id = Memoirs.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
+    memoir_id = @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
     get "/delete/#{memoir_id}"
-    assert_equal 0, Memoirs.count
+    assert_equal 0, @repo.count
   end
 
   def test_it_searches
-    a = Memoirs.add(Memoir.new(:body => 'ohaiSHOWSTOPPER', :editor => 'lol'))
-    b = Memoirs.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))
-    c = Memoirs.add(Memoir.new(:body => 'xxmatchxx', :editor => 'ohai'))
+    a = @repo.add(Memoir.new(:body => 'ohaiSHOWSTOPPER', :editor => 'lol'))
+    b = @repo.add(Memoir.new(:body => 'oomatch', :editor => 'lol'))
+    c = @repo.add(Memoir.new(:body => 'xxmatchxx', :editor => 'ohai'))
 
     get "/search", :query => "match"
     assert last_response.body.include?('oomatch')
@@ -77,6 +78,7 @@ class MemoirsTest < Test::Unit::TestCase
   end
 
   def test_random
+    @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
     get "/random"
   end
 end

@@ -1,6 +1,7 @@
 class MemoirRepo
   def initialize(category_id)
-    @dataset = DB[:memoirs].where('category_id = ?', category_id).reverse_order(:created_at)
+    @category_id = category_id
+    @dataset = DB[:memoirs].where('category_id = ?', @category_id).reverse_order(:created_at)
   end
 
   def list(offset)
@@ -41,7 +42,7 @@ class MemoirRepo
 
   def add(memoir)
     return false unless memoir.valid?
-    dataset.insert(memoir.attributes.merge(created_at: Time.now.utc))
+    dataset.insert(memoir.attributes.merge(created_at: Time.now.utc, category_id: @category_id))
   end
 
   def update(memoir)
@@ -73,11 +74,15 @@ class MemoirRepo
   end
 
   def load(records)
-    records.map{ |record| Memoir.new(record) }
+    records.map{ |record| r_to_o(record) }
   end
 
   def load_one(dataset)
-    dataset.limit(1).map{ |record| Memoir.new(record) }.first
+    dataset.limit(1).map{ |record| r_to_o(record) }.first
+  end
+
+  def r_to_o(record)
+    Memoir.new(record.slice(:id, :body, :editor, :created_at))
   end
 
   def dataset

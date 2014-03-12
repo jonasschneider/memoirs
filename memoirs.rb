@@ -53,5 +53,5 @@ App = Rack::Builder.new {
   end
 
   # legacy category
-  run CategoryApp.new(MemoirRepo.new(1))
+  run CategoryApp.new(1)
 }

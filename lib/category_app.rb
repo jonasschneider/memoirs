@@ -44,7 +44,11 @@ class CategoryApp < Sinatra::Base
   # Redirect to a random memoir.
   get '/random' do
     memoir = @memoir_repo.sample
-    redirect url_for_memoir(memoir)
+    if memoir
+      redirect url_for_memoir(memoir)
+    else
+      halt 404
+    end
   end
 
 

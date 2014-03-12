@@ -1,12 +1,12 @@
 class Memoir
-  attr_accessor :id, :body, :editor, :created_at, :category_id
+  attr_accessor :id, :body, :editor, :created_at
 
   def initialize(initial_attributes = {})
     update_attributes(initial_attributes)
   end
 
   def attributes
-    { body: body, editor: editor, category_id: category_id }
+    { body: body, editor: editor }
   end
 
   def update_attributes(new_attributes)

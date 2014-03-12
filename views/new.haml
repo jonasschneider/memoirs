@@ -1,4 +1,4 @@
 %h1 Neues Memoir
 
-%form{ :action => '/', :method => 'post', :id => "new_memoir" }
+%form{ :action => url_for("/"), :method => 'post', :id => "new_memoir" }
   = haml :form, :locals => { :memoir => @memoir }, :layout => false

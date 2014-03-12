@@ -1,6 +1,6 @@
 - if authorized?
   %h5
-    %a{ :href => "/new" } Neu
+    %a{ :href => url_for("/new") } Neu
 
 - @memoirs.each do |memoir|
   = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
@@ -17,5 +17,5 @@
         %a{ :href => "?skip=#{@skip-3}"} Neuere »
     .clearfix
 
-- unless ENV['SITE_NAME']
+- if @current_category.the_original?
   #footer= faceboook_like_page_badge
