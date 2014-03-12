@@ -1,7 +1,6 @@
 ENV['DATABASE_URL'] ||= "postgres://jonas@localhost/memoirs_test"
-ENV['ALLOW_NON_HTTPS'] = "true"
+ENV['LAX_TRANSPORT'] = "true"
 ENV['SESSION_SECRET'] = 'totally sekrit'
-ENV['NO_FORCE_HOST'] = "true"
 
 require "rubygems"
 require "bundler/setup"
