@@ -6,20 +6,25 @@
   %h5
     %a{ :href => url_for("/new") } Neu
 
-- @memoirs.each do |memoir|
-  = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
-  - if memoir != @memoirs.last
-    .memoir-separator
+- if @memoirs.empty?
+  %h5
+    %small (noch keine Einträge)
 
-- if @skip
-  #pagination
-    - if (@skip + 3) < @memoir_repo.count
-      %span.left
-        %a{ :href => "?skip=#{@skip+3}"} « Ältere
-    - if @skip > 0
-      %span.right
-        %a{ :href => "?skip=#{@skip-3}"} Neuere »
-    .clearfix
+- else
+  - @memoirs.each do |memoir|
+    = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
+    - if memoir != @memoirs.last
+      .memoir-separator
+
+  - if @skip
+    #pagination
+      - if (@skip + 3) < @memoir_repo.count
+        %span.left
+          %a{ :href => "?skip=#{@skip+3}"} « Ältere
+      - if @skip > 0
+        %span.right
+          %a{ :href => "?skip=#{@skip-3}"} Neuere »
+      .clearfix
 
 - if @current_category.the_original?
   #footer= faceboook_like_page_badge
