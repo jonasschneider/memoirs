@@ -14,7 +14,7 @@
     - memoir.dialogue_lines.each do |line|
       %p.dialogue{ :class => cycle }
         - if line[:speaker]
-          - unless line[:speaker].blank?
+          - unless line[:speaker].empty?
             %span.speaker= line[:speaker]
           - unless line[:style].nil?
             %span.style= line[:style]
@@ -27,7 +27,6 @@
   - else
     %p.quote= memoir.body
 
-  .clearfix
   - unless defined?(skip_details)
     .details
       %a{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date(memoir.created_at)}
