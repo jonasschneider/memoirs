@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
-gem "mongoid"
-gem "bson_ext"
-gem "mongoid_fulltext"
+ruby '2.1.0'
 
 gem "sequel"
 gem "pg"
@@ -12,11 +10,13 @@ gem 'rack-ssl-enforcer'
 
 gem "haml"
 gem "sass"
+gem "builder"
 gem "redcarpet"
 
 gem "json"
 gem "rest-client"
 gem "rest-graph"
+
 gem "activesupport"
 
 gem "racksh"

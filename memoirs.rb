@@ -11,8 +11,7 @@ require "rack-ssl-enforcer"
 require "haml"
 require "sass"
 require 'redcarpet'
-require "mongoid"
-require "mongoid_fulltext"
+require 'active_support/core_ext/hash/slice'
 require 'active_support/core_ext/string/filters' # String#truncate
 require 'rest-graph'
 require 'lib/facebook'
