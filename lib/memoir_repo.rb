@@ -51,8 +51,8 @@ class MemoirRepo
   end
 
   def fulltext_search(query_string)
-    like = "%#{query_string}%"
-    load dataset.filter('body like ?', like)
+    like = "%#{query_string.downcase}%"
+    load dataset.filter('lower(body) like ?', like)
   end
 
   protected
