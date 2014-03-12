@@ -1,5 +1,12 @@
+ENV["RACK_ENV"] = "production"
 require "digest/md5"
 require "sinatra/base"
+
+Sinatra::Base.configure do |c|
+  c.set :show_exceptions, false
+  c.set :raise_errors, true
+end
+
 require "rack-ssl-enforcer"
 require "haml"
 require "sass"
@@ -18,11 +25,11 @@ require 'lib/category_app'
 require 'sequel'
 DB = Sequel.connect(ENV["DATABASE_URL"])
 
-Category = Struct.new(:mnemonic, :name, :by_me?, :the_original?)
+Category = Struct.new(:mnemonic, :name, :by_me?, :the_original?, :description)
 Categories = {
-  1 => Category.new('memoiren-der-kursstufe', 'Memoiren der Kursstufe', true, true),
-  2 => Category.new('memoiren-fuer-alle', 'Memoiren für alle!', false, false),
-  3 => Category.new('memoiren-des-auditoriums', 'Memoiren des Auditoriums', true, false),
+  1 => Category.new('memoiren-der-kursstufe', 'Memoiren der Kursstufe', true, true, "Memoiren der Kursstufe von Jonas Schneider."),
+  2 => Category.new('memoiren-fuer-alle', 'Memoiren für alle!', false, false, nil),
+  3 => Category.new('memoiren-des-auditoriums', 'Memoiren des Auditoriums', true, false, nil),
 }
 
 class Assets < Sinatra::Base
@@ -41,9 +48,26 @@ class Assets < Sinatra::Base
   end
 end
 
+class Frontpage
+  def initialize(app, options)
+    @nonfrontpage_app = app
+    @frontpage_app = options[:frontpage_app]
+  end
+
+  def call(env)
+    if env["PATH_INFO"] == "/"
+      @frontpage_app.call(env)
+    else
+      @nonfrontpage_app.call(env)
+    end
+  end
+end
+
 App = Rack::Builder.new {
+  use Rack::ShowExceptions  if ENV["SHOW_EXCEPTIONS"]
   use Rack::SslEnforcer, hsts: true unless ENV["ALLOW_NON_HTTPS"]
   use Rack::Session::Cookie, secret: ENV["SESSION_SECRET"]
+
   use Assets
 
   Categories.each do |cat_id, cat|
@@ -51,6 +75,8 @@ App = Rack::Builder.new {
       run CategoryApp.new(cat_id)
     end
   end
+
+  use Frontpage, frontpage_app: CategoryApp.new(3)
 
   # legacy category
   run CategoryApp.new(1)

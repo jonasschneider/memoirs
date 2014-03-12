@@ -9,9 +9,9 @@
 
 - if authorized?
   %h5
-    %a{ :href => "/edit/#{@memoir.id}" } Bearbeiten
+    %a{ :href => url_for("/edit/#{@memoir.id}") } Bearbeiten
 
 %h5
-  %a{ :href => "/random" } Zufällig
+  %a{ :href => url_for("/random") } Zufällig
 
 = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

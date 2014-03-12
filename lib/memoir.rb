@@ -19,13 +19,6 @@ class Memoir
     attributes.all?{|k,v| !v.nil? }
   end
 
-  def maybe_escape
-    if ENV["SITE_NAME"]
-      self.text = (text || '').gsub('<', '&lt;').gsub('>', '&gt;')
-    end
-    true
-  end
-
   QUOTE_EX = /^"(.*)"(?: - (.*))?$/m
 
   def is_quote?

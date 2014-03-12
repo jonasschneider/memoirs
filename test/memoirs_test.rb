@@ -45,7 +45,7 @@ class MemoirsTest < Test::Unit::TestCase
     memoir_id = @repo.add(Memoir.new(:body => 'o lol', :editor => 'lol'))
 
     post "/update/#{memoir_id}", :memoir => { :body => "sup guys", :editor => 'me' }
-    assert_equal 'http://example.org/1', last_response.headers['Location']
+    assert_equal 'http://example.org/memoiren-der-kursstufe/1', last_response.headers['Location']
     follow_redirect!
 
     assert last_response.ok?

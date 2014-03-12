@@ -1,6 +1,6 @@
 !!!
 %head
-  %title= ENV['SITE_NAME'] || 'Memoiren der Kursstufe'
+  %title= @current_category.name
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/style.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/fonts/stylesheet/style.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (max-width: 480px)', :href => '/mobile.css' }
@@ -13,7 +13,7 @@
   %ul#category-selector
     - Categories.each do |id, cat|
       %li{ class: cat == @current_category ? 'active' : nil }
-        %a{ href: category_url(id) }= cat.name
+        %a{ href: category_url(cat) }= cat.name
 
   #wrapper
     #header

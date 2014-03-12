@@ -3,11 +3,11 @@ module MemoirHelpers
 
   def url_for(path)
     path = "" if path == "/"
-    request.base_url + request.script_name + path
+    category_url(@current_category) + path
   end
 
-  def category_url(id)
-    request.base_url + "/#{Categories[id].mnemonic}"
+  def category_url(cat)
+    request.base_url + "/#{cat.mnemonic}"
   end
 
   def url_for_memoir(memoir)
