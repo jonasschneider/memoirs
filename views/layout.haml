@@ -7,7 +7,7 @@
 
   %meta{ :name => 'description', :content => 'Die Memoiren der Kursstufe.' }
   %meta{ :name => 'keywords', :content => 'sprüche, kursstufe, schule, lehrer, kaindl, schüler, lustig, fichte, witze, zitate' }
-  %link{ :rel => 'alternate', :title => 'RSS', :href => '/feed.rss', :type => 'application/rss+xml' }
+  %link{ :rel => 'alternate', :title => "RSS (#{@current_category.name})", :href => url_for('/feed.rss'), :type => 'application/rss+xml' }
 
 %body
   %ul#category-selector
