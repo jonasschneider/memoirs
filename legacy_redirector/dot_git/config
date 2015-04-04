@@ -1,0 +1,13 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[branch "master"]
+	remote = git@heroku.com:memoirs.git
+	merge = refs/heads/master
+[remote "origin"]
+	url = git@heroku.com:memoirs.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
