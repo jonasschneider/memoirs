@@ -51,6 +51,15 @@ module MemoirHelpers
     (date || Time.now).strftime("%d.%m.%y")
   end
 
+  def format_date_imprecise(date)
+    if Time.now-date < 86400*30
+      format_date(date)
+    else
+      m = %w(Januar Februar März April Mai Juni Juli August September Oktober November Dezember)[date.month-1]
+      "#{m} #{date.year}"
+    end
+  end
+
   def facebook_like_button
    '<iframe src="//www.facebook.com/plugins/like.php?href='+Rack::Utils.escape(request.url)+'&amp;layout=button_count&amp;show_faces=false&amp;width=80&amp;action=like&amp;font=tahoma&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; width:80px; height:21px; overflow:hidden; allowTransparency="true" class="facebook-like-button"></iframe>'
   end

@@ -12,7 +12,7 @@
 
 - else
   - @memoirs.each do |memoir|
-    = haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
+    .memoir-container= haml :memoir, :locals =>  { :memoir => memoir }, :layout => false
     - if memoir != @memoirs.last
       .memoir-separator
 

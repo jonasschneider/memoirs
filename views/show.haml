@@ -4,15 +4,21 @@
   %h3
     - unless @memoir_repo.previous(@memoir).nil?
       %a{ :href => url_for_memoir(@memoir_repo.previous(@memoir)) } ←
-    == &nbsp;Nummer #{@memoir_repo.number(@memoir)}&nbsp;
+    == &nbsp;Nummer #{@memoir_repo.number(@memoir)} vom #{format_date(@memoir.created_at)}&nbsp;
     - unless @memoir_repo.next(@memoir).nil?
       %a{ :href => url_for_memoir(@memoir_repo.next(@memoir)) } →
 
-  %h5
-    %a{ :href => url_for("/random") } Zufälliger Eintrag
+  / %h5
+  /   %a{ :href => url_for("/random") } Zufälliger Eintrag
+
+.memoir-container{style: 'display: flex;'}
+  %div{style: 'width:70%;text-align:right'}
+    = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
+  %div{style: 'width:30%;padding: 0 30px'}
+    %hr{style: 'width: 20%;margin-left:0;'}
+    %p{ style: 'font-size: 80%;opacity:0.8;text-align:left;line-height:130%;font-style:italic;'}
+      Im Fakultätsgebäude der Architekten am KIT gibt es zwei große Hörsäle; den “Hörsaal 37” und den Egon-Eiermann-Hörsaal.
 
 - if authorized?
   %h5
     %a{ :href => url_for("/edit/#{@memoir.id}") } Bearbeiten
-
-= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

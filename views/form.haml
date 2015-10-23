@@ -5,6 +5,9 @@
 %p
   %small
     %input.memoir_field{ :name => 'memoir[editor]', :placeholder => 'Sachbearbeiter (optional)', :value => memoir.editor }
+/ %p
+/   %small
+/     %textarea.memoir_field{ :name => 'memoir[subtext]', :placeholder => 'Subtext/Erklärung', :cols => 50, :rows => 10 }
 %p
   %input{ :type => 'submit', :value => 'Speichern' }
 
@@ -19,4 +22,4 @@
     })
 
 - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
-%section{ style: "text-align: left"}~ markdown.render(File.read("README.md"))
+%section{ style: "text-align: left"}~# markdown.render(File.read("README.md"))

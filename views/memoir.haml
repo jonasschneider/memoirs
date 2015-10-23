@@ -31,8 +31,7 @@
   - else
     %p.quote= process(memoir.body)
 
-  - unless defined?(skip_details)
+  - if !defined?(on_show_page) && !defined?(skip_details)
     .details
-      %a{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date(memoir.created_at)}
-      - if @current_category.the_original? && defined? on_show_page
-        = facebook_like_button
+      %a{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date_imprecise(memoir.created_at)}
+      =# facebook_like_button

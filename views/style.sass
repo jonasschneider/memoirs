@@ -104,10 +104,14 @@ h3
   -o-transform: rotate(180deg)
   transform: rotate(180deg)
 
-.memoir
+.memoir-container
   padding: 70px 0
   position: relative
 
+  &:hover .details, &.show .details
+    visibility: visible
+
+.memoir
   font-family: 'Adobe Caslon Pro', Georgia, serif
 
   .number
@@ -137,9 +141,6 @@ h3
       &:hover
         color: #333
         border-bottom: 1px dotted #333
-
-  &:hover .details, &.show .details
-    visibility: visible
 
   .quote
     font-size: 30px
