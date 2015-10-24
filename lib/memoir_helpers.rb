@@ -71,4 +71,9 @@ module MemoirHelpers
   def post_memoir_to_facebook(memoir)
     Facebook.post(:message => memoir.text.truncate(60), :link => url_for_memoir(memoir))
   end
+
+  def markdown(source)
+    m = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+    m.render(source)
+  end
 end

@@ -1,17 +1,18 @@
 %script{ :src => 'https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js' }
 
 %p
-  %textarea.memoir_field{ :name => 'memoir[body]', :placeholder => 'Text', :cols => 50, :rows => 10 }= memoir.body
+  %textarea.memoir_field{ autofocus:true, :name => 'memoir[body]', :placeholder => 'Text', :cols => 50, :rows => 6 }= memoir.body
 %p
   %small
-    %input.memoir_field{ :name => 'memoir[editor]', :placeholder => 'Sachbearbeiter (optional)', :value => memoir.editor }
-/ %p
-/   %small
-/     %textarea.memoir_field{ :name => 'memoir[subtext]', :placeholder => 'Subtext/Erklärung', :cols => 50, :rows => 10 }
+    %textarea.memoir_field{ :name => 'memoir[subtext]', :placeholder => 'Subtext/Erklärung', :cols => 50, :rows => 4 }
+%p
+  %small
+    %input.memoir_field{ :name => 'memoir[editor]', :placeholder => 'Sachbearbeiter', :value => memoir.editor, length: 20}
 %p
   %input{ :type => 'submit', :value => 'Speichern' }
 
-#memoir_preview= haml :memoir, :locals =>  { :memoir => @memoir, :skip_details => true }, :layout => false
+.memoir-container
+  #memoir_preview= haml :memoir, :locals =>  { :memoir => @memoir, :skip_details => true }, :layout => false
 
 %script
   :plain
@@ -21,5 +22,4 @@
       });
     })
 
-- markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
-%section{ style: "text-align: left"}~# markdown.render(File.read("README.md"))
+%section{ style: "text-align: left"}~ markdown File.read("README.md")

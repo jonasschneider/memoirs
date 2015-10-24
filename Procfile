@@ -1,1 +1,1 @@
-web: bundle exec puma -p $PORT
+web: env RUBYOPT=-Ku bundle exec puma -p $PORT

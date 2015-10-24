@@ -1,5 +1,5 @@
 class Memoir
-  attr_accessor :id, :body, :editor, :created_at
+  attr_accessor :id, :body, :editor, :subtext, :created_at
 
   def initialize(initial_attributes = {})
     self.body = ""
