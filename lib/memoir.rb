@@ -18,7 +18,7 @@ class Memoir
   end
 
   def valid?
-    attributes.all?{|k,v| !v.nil? }
+    !body.nil? && !editor.nil?
   end
 
   QUOTE_EX = /^"(.*)"(?: - (.*))?$/m
