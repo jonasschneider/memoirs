@@ -101,6 +101,9 @@ class CategoryApp < Sinatra::Base
     protected!
     @memoir = @memoir_repo.find(params[:id])
     @memoir.update_attributes(body: params[:memoir]["body"], editor: params[:memoir]["editor"])
+    if (st = params[:memoir]["subtext"]) && !st.strip.empty?
+      @memoir.subtext = st
+    end
     if @memoir_repo.update(@memoir)
       redirect url_for_memoir(@memoir)
     else

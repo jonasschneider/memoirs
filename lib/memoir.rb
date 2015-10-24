@@ -8,7 +8,7 @@ class Memoir
   end
 
   def attributes
-    { body: body, editor: editor }
+    { body: body, editor: editor, subtext: subtext }
   end
 
   def update_attributes(new_attributes)
