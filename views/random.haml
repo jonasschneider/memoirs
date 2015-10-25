@@ -11,7 +11,7 @@
 
 %script{ src: 'https://code.jquery.com/jquery-2.1.4.min.js', defer: true }
 :coffeescript
-  action = location.href
+  default_action = location.href
   locked = false
   window.addEventListener 'DOMContentLoaded', ->
     return if safari? # fuck you and smile
@@ -23,7 +23,12 @@
       e.preventDefault()
       next()
 
-    window.next = next = ->
+    window.onpopstate = (e) ->
+      if e.state.mem
+        next(e.state.mem)
+
+    window.next = next = (popping_action) ->
+      action = popping_action || default_action
       return if locked
       locked = true
 
@@ -46,7 +51,8 @@
         newmem = $("#mem", $(data))[0]
         newmem.classList.add("mem-enter")
         oldmem.parentNode.replaceChild(newmem, oldmem)
-        history.pushState {}, null, $(".permalink").attr("href")
+        unless popping_action
+          history.pushState {mem: $(".permalink").attr("href")}, null, $(".permalink").attr("href")
 
         # twice to force the repaint and avoid stutter!
         requestAnimationFrame ->
