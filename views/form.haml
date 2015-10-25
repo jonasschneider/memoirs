@@ -8,6 +8,7 @@
 %p
   %small
     %input.memoir_field{ :name => 'memoir[editor]', :placeholder => 'Sachbearbeiter', :value => memoir.editor, length: 20}
+    %input.memoir_field{ :name => 'memoir[embargoed_until]', :placeholder => 'Embargo bis', :value => memoir.embargoed_until ? memoir.embargoed_until.strftime("%Y-%m-%d") : nil, length: 20}
 %p
   %input{ :type => 'submit', :value => 'Speichern' }
 

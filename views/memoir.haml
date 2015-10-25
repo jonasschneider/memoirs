@@ -8,28 +8,31 @@
 .memoir{ :class => defined?(on_show_page) ? 'show' : '' }
   %span.number
     %a{ :href => url_for_memoir(memoir) }= @memoir_repo.number(memoir)
-  - if memoir.is_quote?
-    %p.quote= enquote process(memoir.quoted_text)
-    - if memoir.quote_source
-      %p.quotesource= process(memoir.quote_source)
-  - elsif memoir.is_dialogue?
-    - reset_cycle
-    - memoir.dialogue_lines.each do |line|
-      %p.dialogue{ :class => cycle }
-        - if line[:speaker]
-          - unless line[:speaker].empty?
-            %span.speaker= process(line[:speaker])
-          %span
-            - unless line[:style].nil?
-              %span.style= process(line[:style])
-            - unless line[:message].nil? || line[:message].empty?
-              %span.quote= enquote process(line[:message])
-        - elsif line[:action]
-          %span.action= process(line[:action])
-        - else
-          = process(line[:message])
+  - if memoir.embargoed?
+    %em (Noch unter Verschluss.)
   - else
-    %p.quote= process(memoir.body)
+    - if memoir.is_quote?
+      %p.quote= enquote process(memoir.quoted_text)
+      - if memoir.quote_source
+        %p.quotesource= process(memoir.quote_source)
+    - elsif memoir.is_dialogue?
+      - reset_cycle
+      - memoir.dialogue_lines.each do |line|
+        %p.dialogue{ :class => cycle }
+          - if line[:speaker]
+            - unless line[:speaker].empty?
+              %span.speaker= process(line[:speaker])
+            %span
+              - unless line[:style].nil?
+                %span.style= process(line[:style])
+              - unless line[:message].nil? || line[:message].empty?
+                %span.quote= enquote process(line[:message])
+          - elsif line[:action]
+            %span.action= process(line[:action])
+          - else
+            = process(line[:message])
+    - else
+      %p.quote= process(memoir.body)
 
   - if !defined?(on_show_page) && !defined?(skip_details)
     .details

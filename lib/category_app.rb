@@ -100,7 +100,7 @@ class CategoryApp < Sinatra::Base
   post '/update/:id' do
     protected!
     @memoir = @memoir_repo.find(params[:id])
-    @memoir.update_attributes(body: params[:memoir]["body"], editor: params[:memoir]["editor"])
+    @memoir.update_attributes(body: params[:memoir]["body"], editor: params[:memoir]["editor"], embargoed_until: params[:memoir]["embargoed_until"])
     if (st = params[:memoir]["subtext"]) && !st.strip.empty?
       @memoir.subtext = st
     end

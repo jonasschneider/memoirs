@@ -78,7 +78,7 @@ class MemoirRepo
   end
 
   def r_to_o(record)
-    Memoir.new(record.slice(:id, :body, :editor, :created_at, :subtext))
+    Memoir.new(record.slice(:id, :body, :editor, :created_at, :subtext, :embargoed_until))
   end
 
   def dataset

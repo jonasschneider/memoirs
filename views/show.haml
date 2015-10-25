@@ -11,7 +11,7 @@
   / %h5
   /   %a{ :href => url_for("/random") } Zufälliger Eintrag
 
-- if @memoir.subtext.nil?
+- if @memoir.subtext.nil? || @memoir.embargoed?
   .memoir-container= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
 - else
   .memoir-container{style: 'display: flex;'}

@@ -1,5 +1,5 @@
 class Memoir
-  attr_accessor :id, :body, :editor, :subtext, :created_at
+  attr_accessor :id, :body, :editor, :subtext, :created_at, :embargoed_until
 
   def initialize(initial_attributes = {})
     self.body = ""
@@ -7,8 +7,17 @@ class Memoir
     update_attributes(initial_attributes)
   end
 
+  def embargoed_until=(newdate)
+    if newdate.nil? || (String === newdate && newdate.empty?)
+      newdate = nil
+    elsif !(Date === newdate)
+      newdate = Date.parse(newdate)
+    end
+    @embargoed_until = newdate
+  end
+
   def attributes
-    { body: body, editor: editor, subtext: subtext }
+    { body: body, editor: editor, subtext: subtext, embargoed_until: embargoed_until }
   end
 
   def update_attributes(new_attributes)
@@ -64,5 +73,9 @@ class Memoir
         { :message => line }
       end
     end
+  end
+
+  def embargoed?
+    !embargoed_until.nil? && Date.today < embargoed_until
   end
 end
