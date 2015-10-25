@@ -11,9 +11,9 @@
       %a{ :href => url_for_memoir(@memoir_repo.next(@memoir)) } →
 
 - if @memoir.subtext.nil? || @memoir.embargoed?
-  #mem.memoir-container= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
+  .memoir-container= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
 - else
-  #mem.memoir-container{style: 'display: flex;'}
+  .memoir-container{style: 'display: flex;'}
     %div{style: 'width:70%;text-align:right'}
       = haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false
     .subtext{style: 'width:30%;padding: 0 30px'}

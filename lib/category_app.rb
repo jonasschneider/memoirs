@@ -47,7 +47,12 @@ class CategoryApp < Sinatra::Base
   # Show page.
   get %r{^/([0-9]+)$} do |number|
     @memoir = @memoir_repo.find_by_number(number.to_i)
-    haml :show
+    if request.xhr?
+      # render the page for ajax
+      haml :random
+    else
+      haml :show
+    end
   end
 
   # GET /search

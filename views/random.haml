@@ -16,7 +16,7 @@
   window.addEventListener 'DOMContentLoaded', ->
     return if safari? # fuck you and smile
 
-    history.pushState {}, null, $(".permalink").attr("href")
+    history.replaceState {mem: $(".permalink").attr("href")}, null, $(".permalink").attr("href")
     document.addEventListener 'keydown', (e) ->
       if e.target == document.querySelector("#search_field")
         return
@@ -24,7 +24,8 @@
       next()
 
     window.onpopstate = (e) ->
-      if e.state.mem
+      if e.state && e.state.mem
+        e.preventDefault
         next(e.state.mem)
 
     window.next = next = (popping_action) ->
