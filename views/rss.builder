@@ -6,6 +6,7 @@ xml.rss :version => "2.0" do
     xml.link url_for('/')
 
     @memoirs.each do |memoir|
+      next if memoir.embargoed?
       xml.item do
         xml.title memoir.body.truncate(60)
         xml.link url_for_memoir(memoir)
