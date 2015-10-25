@@ -51,6 +51,12 @@ module MemoirHelpers
     (date || Time.now).strftime("%d.%m.%y")
   end
 
+  def format_date_neat(date)
+    y = if date.year == Time.now.year then "" else " #{date.year}" end
+    m = %w(Januar Februar März April Mai Juni Juli August September Oktober November Dezember)[date.month-1]
+    "#{date.day}. #{m}#{y}"
+  end
+
   def format_date_imprecise(date)
     if Time.now-date < 86400*30
       format_date(date)

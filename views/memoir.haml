@@ -9,7 +9,7 @@
   %span.number
     %a{ :href => url_for_memoir(memoir) }= @memoir_repo.number(memoir)
   - if memoir.embargoed?
-    %em (Noch unter Verschluss.)
+    %em{style: 'opacity:0.7'}== (Noch unter Verschluss bis zum #{format_date_neat memoir.embargoed_until}.)
   - else
     - if memoir.is_quote?
       %p.quote= enquote process(memoir.quoted_text)

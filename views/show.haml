@@ -4,7 +4,9 @@
   %h3
     - unless @memoir_repo.previous(@memoir).nil?
       %a{ :href => url_for_memoir(@memoir_repo.previous(@memoir)) } ←
-    == &nbsp;Nummer #{@memoir_repo.number(@memoir)} vom #{format_date(@memoir.created_at)}&nbsp;
+    == &nbsp;Nummer #{@memoir_repo.number(@memoir)}
+    - unless @memoir.embargoed?
+      == vom #{format_date(@memoir.created_at)}&nbsp;
     - unless @memoir_repo.next(@memoir).nil?
       %a{ :href => url_for_memoir(@memoir_repo.next(@memoir)) } →
 
