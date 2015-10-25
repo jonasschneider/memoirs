@@ -21,7 +21,11 @@
       if e.target == document.querySelector("#search_field")
         return
       e.preventDefault()
-      next()
+
+      if e.keyCode == 37 # left arrow
+        history.back()
+      else
+        next()
 
     window.onpopstate = (e) ->
       if e.state && e.state.mem
