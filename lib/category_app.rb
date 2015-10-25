@@ -25,8 +25,18 @@ class CategoryApp < Sinatra::Base
   end
 
   # GET /
-  # Index page.
   get '/' do
+    @memoir = @memoir_repo.sample
+    if @memoir
+      haml :random
+    else
+      @skip = (params[:skip] && params[:skip].to_i) || 0
+      @memoirs = @memoir_repo.list(@skip)
+      haml :index
+    end
+  end
+
+  get '/archive' do
     @skip = (params[:skip] && params[:skip].to_i) || 0
     @memoirs = @memoir_repo.list(@skip)
     haml :index
@@ -40,25 +50,12 @@ class CategoryApp < Sinatra::Base
     haml :show
   end
 
-  # GET /random
-  # Redirect to a random memoir.
-  get '/random' do
-    memoir = @memoir_repo.sample
-    if memoir
-      redirect url_for_memoir(memoir)
-    else
-      halt 404
-    end
-  end
-
-
   # GET /search
   # Full-text search.
   get '/search' do
     @memoirs = @memoir_repo.fulltext_search(params[:query])
     haml :index
   end
-
 
   # GET /new
   # New memoir form.

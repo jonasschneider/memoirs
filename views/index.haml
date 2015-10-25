@@ -2,10 +2,6 @@
   %form{ :action => url_for('/search') }
     %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
 
-- if authorized?
-  %h5
-    %a{ :href => url_for("/new") } Neu
-
 - if @memoirs.empty?
   %h5
     %small (Noch keine Memoiren.)
@@ -24,6 +20,3 @@
       - if @skip > 0
         %span.right
           %a{ :href => "?skip=#{@skip-3}"} Neuere »
-
-- if @current_category.the_original?
-  #footer= faceboook_like_page_badge

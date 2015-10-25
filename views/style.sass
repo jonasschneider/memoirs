@@ -228,3 +228,29 @@ pre
     :font-style italic
 
     :margin-bottom 10px
+
+.mem-leave
+  :transition opacity 150ms, transform 150ms
+  :transform translateY(0px)
+  :opacity 1
+
+  &.active
+    :opacity 0
+    :transform translateY(100px)
+
+
+.mem-enter
+  :transform translateY(100px)
+  :opacity 0
+
+  &.active
+    :transition opacity 150ms, transform 150ms
+    :opacity 1
+    :transform translateY(0px)
+
+.btn-leave
+  :transition opacity 200ms
+  :opacity 1
+
+  &.active
+    :opacity 0

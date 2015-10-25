@@ -10,8 +10,13 @@ GEM
     addressable (2.3.8)
     builder (3.2.2)
     coderay (1.1.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.9.1.1)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
+    execjs (2.6.0)
     haml (4.0.7)
       tilt
     http-cookie (1.0.2)
@@ -70,6 +75,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport
   builder
+  coffee-script
   haml
   json
   pg

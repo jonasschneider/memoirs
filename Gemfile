@@ -13,6 +13,7 @@ gem 'rack-canonical-host'
 
 gem "haml"
 gem "sass"
+gem "coffee-script"
 gem "builder"
 gem "redcarpet"
 

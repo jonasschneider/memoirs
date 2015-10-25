@@ -37,7 +37,7 @@ class MemoirRepo
   end
 
   def sample
-    load_one dataset.offset((Kernel.rand*(dataset.count)).to_i)
+    load_one dataset.where('embargoed_until IS NULL or embargoed_until < now()').offset((Kernel.rand*(dataset.count)).to_i)
   end
 
   def add(memoir)
@@ -52,7 +52,7 @@ class MemoirRepo
 
   def fulltext_search(query_string)
     like = "%#{query_string.downcase}%"
-    load dataset.filter('lower(body) like ?', like)
+    load dataset.filter('lower(body) like ? or lower(subtext)', like)
   end
 
   protected

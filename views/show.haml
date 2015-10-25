@@ -1,4 +1,4 @@
-- @title = "Memoir Nummer #{@memoir_repo.number(@memoir)}"
+- @title = "Nummer #{@memoir_repo.number(@memoir)}"
 
 - header do
   %h3
@@ -9,9 +9,6 @@
       == vom #{format_date(@memoir.created_at)}&nbsp;
     - unless @memoir_repo.next(@memoir).nil?
       %a{ :href => url_for_memoir(@memoir_repo.next(@memoir)) } →
-
-  / %h5
-  /   %a{ :href => url_for("/random") } Zufälliger Eintrag
 
 - if @memoir.subtext.nil? || @memoir.embargoed?
   .memoir-container= haml :memoir, :locals =>  { :memoir => @memoir, :on_show_page => true }, :layout => false

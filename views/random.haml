@@ -1,0 +1,84 @@
+- header do
+  %form{ :action => url_for('/search') }
+    %input#search_field{ :name => 'query', :placeholder => 'Suchen...' }
+
+#mem.memoir-container= haml :memoir, :locals =>  { :memoir => @memoir }, :layout => false
+
+%button#start{style: 'background: transparent; border: 1px solid #888; border-radius:5px;padding: 10px; font-weight: 100;font-size: 100%;font-variant:small-caps;font-family:inherit', onclick: 'window.next()'}
+  weiter
+  %br
+  %small (Leertaste, Enter)
+
+%script{ src: 'https://code.jquery.com/jquery-2.1.4.min.js', defer: true }
+:coffeescript
+  action = location.href
+  locked = false
+  window.addEventListener 'DOMContentLoaded', ->
+    return if safari? # fuck you and smile
+
+    history.pushState {}, null, $(".permalink").attr("href")
+    document.addEventListener 'keydown', (e) ->
+      if e.target == document.querySelector("#search_field")
+        return
+      e.preventDefault()
+      next()
+
+    window.next = next = ->
+      return if locked
+      locked = true
+
+      oldmem = document.querySelector("#mem")
+      return unless oldmem
+      oldmem.classList.add("oldmem")
+
+      b = document.querySelector("#start")
+      if b
+        b.classList.add("btn-leave")
+        setTimeout ->
+          b.classList.add("active")
+        , 10
+
+      k = false
+      flip = ->
+        return if k
+        k = true
+
+        newmem = $("#mem", $(data))[0]
+        newmem.classList.add("mem-enter")
+        oldmem.parentNode.replaceChild(newmem, oldmem)
+        history.pushState {}, null, $(".permalink").attr("href")
+
+        setTimeout ->
+          newmem.classList.add("active")
+        , 100
+
+        x = false
+        newmem.addEventListener "transitionend", ->
+          return if x
+          x = true
+          newmem.classList.remove("mem-enter")
+          newmem.classList.remove("active")
+          locked = false
+
+      done_page = false
+      done_trans = false
+      data = null
+
+      done = (data_, r) ->
+        data = data_
+        done_page = true
+        flip() if done_page && done_trans
+
+      oldmem.classList.add("mem-leave")
+      setTimeout ->
+        oldmem.classList.add("active")
+      , 10
+
+      oldmem.addEventListener "transitionend", ->
+        done_trans = true
+        flip() if done_page && done_trans
+
+      $.ajax
+        url: action
+        success: done
+        dataType: "html"

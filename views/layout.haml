@@ -1,12 +1,16 @@
 !!!
 %head
-  %title= @current_category.name
+  %title
+    - if @title
+      == #{@title}
+      |
+    = @current_category.name
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/style.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => '/fonts/stylesheet.css' }
   %link{ :rel => 'stylesheet', :type => 'text/css', :media => 'only screen and (max-width: 480px)', :href => '/mobile.css' }
 
   %meta{ :name => 'description', :content => 'Die Memoiren der Kursstufe.' }
-  %meta{ :name => 'keywords', :content => 'sprüche, kursstufe, schule, lehrer, kaindl, schüler, lustig, fichte, witze, zitate' }
+  %meta{ :name => 'keywords', :content => 'sprüche, kursstufe, schule, lehrer, kaindl, schüler, lustig, fichte, witze, zitate, karlsruhe, uni, student, hörsaal' }
   %link{ :rel => 'alternate', :title => "RSS (#{@current_category.name})", :href => url_for('/feed.rss'), :type => 'application/rss+xml' }
 
 %body
@@ -14,6 +18,10 @@
     - Categories.each do |id, cat|
       %li{ class: cat == @current_category ? 'active' : nil }
         %a{ href: category_url(cat) }= cat.name
+    - if authorized?
+      %li
+        %a{ :href => url_for("/new") } Neu
+
 
   #wrapper
     #header

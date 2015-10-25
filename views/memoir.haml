@@ -36,5 +36,5 @@
 
   - if !defined?(on_show_page) && !defined?(skip_details)
     .details
-      %a{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date_imprecise(memoir.created_at)}
+      %a.permalink{ :href => url_for_memoir(memoir) }== Nummer #{@memoir_repo.number(memoir)} vom #{format_date_imprecise(memoir.created_at)}
       =# facebook_like_button
