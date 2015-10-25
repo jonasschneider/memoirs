@@ -34,9 +34,9 @@
       b = document.querySelector("#start")
       if b
         b.classList.add("btn-leave")
-        setTimeout ->
-          b.classList.add("active")
-        , 10
+        requestAnimationFrame ->
+          requestAnimationFrame ->
+            b.classList.add("active")
 
       k = false
       flip = ->
@@ -48,9 +48,10 @@
         oldmem.parentNode.replaceChild(newmem, oldmem)
         history.pushState {}, null, $(".permalink").attr("href")
 
-        setTimeout ->
-          newmem.classList.add("active")
-        , 100
+        # twice to force the repaint and avoid stutter!
+        requestAnimationFrame ->
+          requestAnimationFrame ->
+            newmem.classList.add("active")
 
         x = false
         newmem.addEventListener "transitionend", ->
@@ -70,9 +71,9 @@
         flip() if done_page && done_trans
 
       oldmem.classList.add("mem-leave")
-      setTimeout ->
-        oldmem.classList.add("active")
-      , 10
+      requestAnimationFrame ->
+        requestAnimationFrame ->
+          oldmem.classList.add("active")
 
       oldmem.addEventListener "transitionend", ->
         done_trans = true
